@@ -1,3 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+	@apply px-6 py-2 rounded-lg;
+}
+
+.social-icons {
+	@apply py-2 px-2 bg-pur rounded-full;
+}
+.social-img {
+	@apply w-14 object-bottom object-cover;
+}
+.input-box {
+	@apply w-full py-2.5 px-3
+}
+.h-btn{
+	@apply transition duration-500 hover:bg-purple-700
+}
+.active-nav{
+	@apply border-b-4 w-fit rounded border-pur
+}
+
+.trans{
+	transition:  all 0.3s linear;
+}
