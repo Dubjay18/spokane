@@ -8,12 +8,12 @@ const Login = () => {
 	return (
 		<MainLayout>
 			<main className="px-5 md:px-16 xl:px-52">
-				<div className="md:grid grid-cols-2 shadow mt-6 mb-16 md:h-600 pb-8 md:pb-0">
-					<div className="hidden md:flex flex-col justify-center px-5 lg:px-10 bg-form-bg text-white">
+				<div className="grid md:grid-cols-2 shadow mt-6 mb-16 md:h-600 pb-8 md:pb-0">
+					<div className="flex flex-col justify-center py-3 px-5 lg:px-10 bg-form-bg text-white">
 						<h1 className="text-4xl lg:text-5xl font-bold pb-7">
 							Login
 						</h1>
-						<p className="text-xl lg:text-2xl leading-8">
+						<p className="md:text-xl lg:text-2xl leading-8">
 							Login now and keep on enjoying our amazing real
 							estate services.
 						</p>
@@ -35,12 +35,12 @@ const Login = () => {
 						</p>
 						<form className="">
 							<input
-								className="input-box italic mb-4 outline-gray-400 bg-purple-50"
+								className="input-box italic mb-4 outline-gray-400 bg-ash-100"
 								type="email"
 								placeholder="Email Address"
 							/>
 							<input
-								className="input-box italic bg-purple-50 outline-gray-400"
+								className="input-box italic bg-ash-100 outline-gray-400"
 								type="password"
 								placeholder="Password"
 							/>
@@ -58,7 +58,9 @@ const Login = () => {
 							</Link>
 						</p>
 						<p className="text-pur font-medium md:text-lg mt-3">
-							<Link exact to="/">Forgot Password?</Link>
+							<Link to="/">
+								Forgot Password?
+							</Link>
 						</p>
 					</div>
 				</div>

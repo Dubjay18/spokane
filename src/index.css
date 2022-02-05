@@ -21,9 +21,13 @@
 	@apply transition duration-500 hover:bg-purple-700
 }
 .active-nav{
-	@apply border-b-4 w-fit rounded border-pur
+	@apply lg:border-b-4 text-pur lg:text-black font-medium lg:font-normal rounded border-pur
 }
 
+/* .logo{
+	text-shadow: 3px 3px 2px rgb(185, 181, 185);
+} */
+
 .trans{
-	transition:  all 0.3s linear;
+	transition:  all 0.7s;
 }

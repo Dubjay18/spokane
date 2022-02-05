@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import ErrorPage from './pages/ErrorPage';
 function App() {
+  
   return (
     <Routes>
       <Route exact path='/' element={<Home/>}/>

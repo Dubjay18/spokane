@@ -47,7 +47,7 @@ const Footer = () => {
 								<span className="underline">509-822-5898</span>
 							</li>
 							<li className="mb-2">
-								Email: <br /> contact@spokaneblinds.com
+								Email: <br /> contact@houseFree.com
 							</li>
 							<div
 								className="pt-px my-5"
@@ -116,7 +116,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<div className="flex flex-col text-center md:text-right gap-2 md:flex-row justify-between lg:py-5 py-8 container px-5 text-secondary font-semibold">
-				<span>©2021 Spokane Blinds. All Rights Reserved.</span>
+				<span>©2021 houseFree. All Rights Reserved.</span>
 				<span>Privacy Policy | Terms & Conditions</span>
 			</div>
 		</footer>
