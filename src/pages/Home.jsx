@@ -41,7 +41,7 @@ const Home = () => {
 			<main>
 				<section className="bg-hero-bg bg-cover bg-center pt-14">
 					<div className="flex pt-14 items-center min-h-screen gap-14 flex-col ">
-						<h1 className="font-bold text-white text-center text-2xl md:text-4xl">
+						<h1 className="font-bold text-white text-center pt-3 text-2xl md:text-4xl">
 							A Better Home Makes <br /> a Better Family
 						</h1>
 						<p className="text-white">Find your next home</p>
@@ -49,7 +49,7 @@ const Home = () => {
 					</div>
 				</section>
 				<section className="container px-2 md:px-7 ">
-					<div className="px-5 md:p-10 bg-ash-200  rounded-lg relative -mt-24">
+					<div className="px-5 py-5 md:py-9 md:px-10 bg-ash-200  rounded-lg relative -mt-24">
 						<h3 className="font-medium  text-2xl lg:text-4xl text-center">
 							Better Experience on Here
 						</h3>
@@ -66,7 +66,7 @@ const Home = () => {
 											<h4 className="text-2xl lg:text-4xl text-white font-medium">
 												{text}
 											</h4>
-											<button className="py-3 rounded-lg w-48 md:w-full lg:w-48 bg-white">
+											<button className="py-3 rounded-lg md:w-full lg:w-48 bg-white">
 												{btn}
 											</button>
 										</div>
