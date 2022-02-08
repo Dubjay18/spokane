@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
-import Profile from '../images/profile.png'
+import Profile from "../images/profile.png";
 
-const Header = () => {
+const Header = ({ headless, bgpur, textwhite }) => {
 	const location = useLocation();
 	const { pathname } = location;
 	const splitLocation = pathname.split("/");
@@ -16,15 +17,13 @@ const Header = () => {
 
 	return (
 		<header
-			className={`shadow py-3 md:py-0 md:pt-3.5 px-4 md:px-8 md:px-5 overflow-hidden trans  ${
-				menuBar ? "h-72 md:h-18" : "md:h-18 h-16"
-			}`}
+			className={`shadow py-3 md:py-0 md:h-18 md:pt-3.5 px-4 md:px-8 md:px-5 overflow-hidden ${headless} ${" h-16"}`}
 		>
 			<div className="lg:grid md:flex md:justify-between grid-cols-3 container items-center">
 				<div className="flex col-span-1 items-center justify-between">
 					<Link
 						to="/"
-						className="text-3xl text-pur font-roboto font-bold logo"
+						className={`text-3xl ${textwhite} font-roboto font-bold logo`}
 					>
 						houseFree
 					</Link>
@@ -32,7 +31,20 @@ const Header = () => {
 						<FaBars size={20} />
 					</button>
 				</div>
-				<nav className="md:grid grid-cols-2 col-span-2 lg:gap-20 pl-3 md:pl-0">
+
+				<nav
+					className={`grid md:grid-cols-2 col-span-2 lg:gap-20 pl-3 md:pl-0 slide slide-nav trans ${
+						menuBar
+							? "translate-x-0"
+							: "-translate-x-full md:translate-x-0"
+					}`}
+				>
+					<button
+						onClick={handleMenu}
+						className="absolute md:hidden top-5 right-4"
+					>
+						<FaTimes size={25} />
+					</button>
 					<ul className="flex flex-col md:items-center md:flex-row gap-y-3 md:gap-5 md:justify-evenly lg:justify-between mt-5 md:mt-0">
 						<li
 							className={
@@ -43,12 +55,12 @@ const Header = () => {
 						</li>
 						<li
 							className={
-								splitLocation[1] === "signup"
+								splitLocation[1] === "about-us"
 									? "active-nav"
 									: ""
 							}
 						>
-							<Link to="/signup">Sign Up</Link>
+							<Link to="/about-us">About Us</Link>
 						</li>
 						<li
 							className={
