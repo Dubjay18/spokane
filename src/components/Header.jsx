@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
-import { FaTimes } from "react-icons/fa";
 
 import Profile from "../images/profile.png";
 
