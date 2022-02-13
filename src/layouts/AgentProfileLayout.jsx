@@ -46,7 +46,7 @@ const AgentProfileLayout = ({ children }) => {
 									alt=""
 								/>
 								<div className="flex justify-between flex-wrap mt-5">
-									<div className="flex items-center gap-2 pl-5 relative bottom-10 md:bottom-8">
+									<div className="flex items-center gap-2 pl-5 relative bottom-6 md:bottom-8">
 										<img
 											className="object-cover h-14 w-14 md:h-24 md:w-24 rounded-full"
 											src="https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg"
