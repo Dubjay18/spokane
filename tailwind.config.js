@@ -39,6 +39,7 @@ module.exports = {
 			},
 			width: {
 				769: "770px",
+				140: "140px",
 				"90vw": "90vw",
 			},
 			colors: {

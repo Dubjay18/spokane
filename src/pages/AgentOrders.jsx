@@ -83,7 +83,7 @@ const AgentOrders = () => {
 						return (
 							<div
 								key={index}
-								className="flex flex-wrap md:text-xs lg:text-sm justify-between items-center rounded-md font-bold text-ash-400 shadow mt-4 bg-white p-2 lg:p-4"
+								className="flex flex-wrap md:text-xs lg:text-sm justify-between items-center rounded-md font-bold text-ash-400 shadow mt-4 bg-white p-4"
 							>
 								<img
 									src={img}
@@ -111,6 +111,11 @@ const AgentOrders = () => {
 							</div>
 						);
 					})}
+				</div>
+				<div className="text-center pb-5">
+					<button className="text-pur shadow-btn py-2.5 px-14 text-lg mt-8 rounded-lg">
+						Load More
+					</button>
 				</div>
 			</section>
 		</AgentProfileLayout>

@@ -8,6 +8,7 @@ import About from './pages/About';
 import ApartmentDetail from './pages/ApartmentDetail';
 import AgentProfile from './pages/AgentProfile';
 import AgentOrders from './pages/AgentOrders';
+import SearchResult from './pages/SearchResult';
 import ErrorPage from './pages/ErrorPage';
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
       <Route path='/about-us' element={<About/>}/>
       <Route path='/agent-profile' element={<AgentProfile/>}/>
       <Route path='/agent-orders' element={<AgentOrders/>}/>
+      <Route path='/search-results' element={<SearchResult/>}/>
       <Route path='/apartment/:id' element={<ApartmentDetail/>}/>
       <Route path='*' element={<ErrorPage/>}/>
     </Routes>
