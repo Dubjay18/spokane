@@ -1,10 +1,15 @@
 import React from 'react';
 import { FaRegHeart } from 'react-icons/fa';
+import {Link} from 'react-router-dom'
 
-const CardType = ({price, type, location, agent, name, img}) => {
+const CardType = ({id, price, type, location, agent, name, img}) => {
   return (
-		<article>
-			<img src={img} alt={name} className="w-full object-cover h-72 rounded-xl" />
+		<Link to={`/apartment/${id}`}>
+			<img
+				src={img}
+				alt={name}
+				className="w-full object-cover h-72 rounded-xl"
+			/>
 			<footer className="flex justify-between items-center">
 				<div className="grid gap-px pt-2">
 					<p>{name}</p>
@@ -15,11 +20,11 @@ const CardType = ({price, type, location, agent, name, img}) => {
 					<p>{price}</p>
 					<p className="text-ash-50 text-sm">{type}</p>
 					<button className="text-ash-50 text-sm">
-						<FaRegHeart size={17}/>
+						<FaRegHeart size={17} />
 					</button>
 				</div>
 			</footer>
-		</article>
+		</Link>
   );
 };
 

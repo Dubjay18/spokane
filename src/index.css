@@ -27,9 +27,16 @@
 .active-type{
 	@apply border-b-4 border-pur text-pur
 }
+.agent-sidebar{
+	@apply text-white bg-pur rounded-xl
+}
+
+.table-sm{
+	@apply hidden md:block
+}
 
 .trans{
-	transition:  all 0.5s;
+	transition:  all 0.4s;
 }
 
 .adjust-bg{
@@ -40,20 +47,28 @@
 	filter: drop-shadow(0px 6px 33px rgba(0, 0, 0, 0.25));
 }
 
-@media screen and (max-width:767px) {
-	.slide-nav{
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100vh;
-		overflow: scroll;
-	}
-	.slide{
-		text-align: center;
-		align-content: center;
-		color: black;
-		background-color: #fff;
+.remove-scroll::-webkit-scrollbar{
+	display: none;
+}
 
+.remove-scroll{
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+
+.grad-p{
+	background: linear-gradient(269.89deg, #79017B 0.06%, #280129 97.7%);
+}
+
+.color{
+	background-color: rgb(46, 45, 46);
+}
+@media screen and (max-width:767px) {
+	.slide{
+		border-top: 1px solid #c0bcbc;
+		text-align: center;
+		margin-top: 20px;
+		align-content: center;
 	}
 }

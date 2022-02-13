@@ -17,7 +17,8 @@ const Header = ({ headless, bgpur, textwhite }) => {
 
 	return (
 		<header
-			className={`shadow py-3 md:py-0 md:h-18 md:pt-3.5 px-4 md:px-8 md:px-5 overflow-hidden ${headless} ${" h-16"}`}
+			className={`shadow z-30 fixed left-0 w-full top-0 py-3 md:py-0 md:h-18 md:pt-3.5 bg-white trans px-4 md:px-8 md:px-5 overflow-hidden ${headless}
+	    ${menuBar ? "h-80 md:h-18" : "h-16"}`}
 		>
 			<div className="lg:grid md:flex md:justify-between grid-cols-3 container items-center">
 				<div className="flex col-span-1 items-center justify-between">
@@ -33,18 +34,9 @@ const Header = ({ headless, bgpur, textwhite }) => {
 				</div>
 
 				<nav
-					className={`grid md:grid-cols-2 col-span-2 lg:gap-20 pl-3 md:pl-0 slide slide-nav trans ${
-						menuBar
-							? "translate-x-0"
-							: "-translate-x-full md:translate-x-0"
-					}`}
+					className={`grid md:grid-cols-2 col-span-2 lg:gap-20 pl-3 md:pl-0 trans slide
+			`}
 				>
-					<button
-						onClick={handleMenu}
-						className="absolute md:hidden top-5 right-4"
-					>
-						<FaTimes size={25} />
-					</button>
 					<ul className="flex flex-col md:items-center md:flex-row gap-y-3 md:gap-5 md:justify-evenly lg:justify-between mt-5 md:mt-0">
 						<li
 							className={
@@ -73,8 +65,14 @@ const Header = ({ headless, bgpur, textwhite }) => {
 						</li>
 					</ul>
 					<ul className="flex flex-col md:flex-row md:items-center mt-3 md:mt-0 gap-y-3 gap-x-4 lg:justify-end">
-						<li className="xl:mr-4">
-							<Link to="/">Become an Agent</Link>
+						<li
+							className={`xl:mr-4 ${
+								splitLocation[1] === "agent-signup"
+									? "active-nav"
+									: ""
+							}`}
+						>
+							<Link to="/agent-signup">Become an Agent</Link>
 						</li>
 						<li className="text-3xl hidden md:block text-gray-400">
 							|

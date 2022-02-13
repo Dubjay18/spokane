@@ -7,7 +7,7 @@ import MainLayout from "../layouts/MainLayout";
 const Signup = () => {
 	return (
 		<MainLayout>
-			<main className="px-5 md:px-16 xl:px-52">
+			<main className="px-5 md:px-16 xl:px-52 pt-2">
 				<div className="grid md:grid-cols-2 shadow mt-6 mb-16 md:h-600 pb-8 md:pb-0">
 					<div className="flex flex-col justify-center py-3 px-5 lg:px-10 bg-form-bg text-white">
 						<h1 className="text-4xl lg:text-5xl font-bold pb-7">

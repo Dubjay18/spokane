@@ -40,12 +40,12 @@ const Home = () => {
 		<HeadlessLayout>
 			<main>
 				<section className="bg-hero-bg bg-cover bg-center pt-14">
-					<div className="flex pt-14 items-center min-h-screen gap-14 flex-col ">
+					<div className="flex pt-20 items-center min-h-screen gap-14 flex-col ">
 						<h1 className="font-bold text-white text-center pt-3 text-2xl md:text-4xl">
 							A Better Home Makes <br /> a Better Family
 						</h1>
 						<p className="text-white">Find your next home</p>
-						<SearchForm/>
+						<SearchForm />
 					</div>
 				</section>
 				<section className="container px-2 md:px-7 ">
@@ -53,7 +53,7 @@ const Home = () => {
 						<h3 className="font-medium  text-2xl lg:text-4xl text-center">
 							Better Experience on Here
 						</h3>
-						<div className="grid mt-8 md:grid-cols-3 gap-5 lg:gap-10">
+						<div className="grid mt-4 md:mt-8 md:grid-cols-3 gap-5 lg:gap-10">
 							{homeCard.map((items, index) => {
 								const { bg, btn, text } = items;
 								return (

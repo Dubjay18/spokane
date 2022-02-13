@@ -1,5 +1,7 @@
 import React from "react";
 import { BsArrowRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
 import About1 from "../images/about1.jpg";
 import About2 from "../images/about2.jpg";
 import MainLayout from "../layouts/MainLayout";
@@ -32,9 +34,11 @@ const About = () => {
 							<button className="py-2 md:py-2.5 px-2 md:px-5 bg-white text-black rounded-lg">
 								Find Apartment
 							</button>
-							<button className="py-2 md:px-5 flex gap-1 items-center rounded-lg">
-								Become an Agent <BsArrowRight />
-							</button>
+							<Link to="/agent-signup">
+								<button className="py-2 md:px-5 flex gap-1 items-center rounded-lg">
+									Become an Agent <BsArrowRight />
+								</button>
+							</Link>
 						</div>
 					</div>
 					<div className="relative hidden lg:block pl-3">
@@ -149,9 +153,11 @@ const About = () => {
 							of need. Airbnb's Open Homes and Frontline Stays.
 						</p>
 						<div className="flex flex-wrap gap-2 md:4 lg:mt-7">
-							<button className="py-2 md:py-2.5 px-2 md:px-5 bg-pur text-white rounded-lg">
-								Become an Agent
-							</button>
+							<Link to="/agent-signup">
+								<button className="py-2 md:py-2.5 px-2 md:px-5 bg-pur text-white rounded-lg">
+									Become an Agent
+								</button>
+							</Link>
 							<button className="py-2 px-2 md:px-5 flex gap-1 text-pur items-center rounded-lg">
 								Learn more <BsArrowRight />
 							</button>

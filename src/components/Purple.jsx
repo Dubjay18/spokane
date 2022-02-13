@@ -28,7 +28,7 @@ const Purple = () => {
 				<div className="lg:col-span-1 order-first md:order-last">
 					<div className="">
 						<div className="relative bg-laptop h-64 bg-cover bg-center">
-							<div className="absolute top-24 ml-16 xl:text-3xl bg-ash rounded-full p-1">
+							<div className="absolute left-15 top-35 md:left-8 lg:left-5 xl:left-15 xl:text-3xl bg-ash rounded-full p-1">
 								<MdFace />
 							</div>
 						</div>

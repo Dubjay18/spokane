@@ -1,5 +1,6 @@
 export const data = [
 	{
+		id: 1,
 		type: "Bungalow",
 		img: require("../images/about1.jpg"),
 		name: "Xclusive Lodge",
@@ -8,6 +9,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 2,
 		type: "Hotels",
 		img: require("../images/about2.jpg"),
 		name: "Xclusive Lodge",
@@ -16,6 +18,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 3,
 		type: "skyscraper",
 		img: require("../images/type.png"),
 		name: "Xclusive Lodge",
@@ -24,6 +27,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 4,
 		type: "Flats",
 		img: require("../images/about2.jpg"),
 		name: "Xclusive Lodge",
@@ -32,6 +36,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 5,
 		type: "skyscraper",
 		img: require("../images/about1.jpg"),
 		name: "Xclusive Lodge",
@@ -40,6 +45,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 6,
 		type: "Flats",
 		img: require("../images/hero.png"),
 		name: "Xclusive Lodge",
@@ -48,6 +54,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 7,
 		type: "Duplex",
 		img: require("../images/type.png"),
 		name: "Xclusive Lodge",
@@ -56,6 +63,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 8,
 		type: "Hotels",
 		img: require("../images/about2.jpg"),
 		name: "Xclusive Lodge",
@@ -64,6 +72,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 9,
 		type: "Bungalow",
 		img: require("../images/about2.jpg"),
 		name: "Xclusive Lodge",
@@ -72,6 +81,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 10,
 		type: "Duplex",
 		img: require("../images/type.png"),
 		name: "Xclusive Lodge",
@@ -80,6 +90,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 11,
 		type: "Self contain",
 		img: require("../images/about2.jpg"),
 		name: "Xclusive Lodge",
@@ -88,6 +99,7 @@ export const data = [
 		agent: "Portablex",
 	},
 	{
+		id: 12,
 		type: "Self contain",
 		img: require("../images/hero.png"),
 		name: "Xclusive Lodge",

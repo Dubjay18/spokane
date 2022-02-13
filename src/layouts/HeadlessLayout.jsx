@@ -7,7 +7,13 @@ import Purple from "../components/Purple";
 const HeadlessLayout = ({ children }) => {
 	return (
 		<>
-			<Header headless={"absolute top-0 w-full text-white z-10"} bgpur={'bg-pur'} textwhite={'text-white'}/>
+			<Header
+				headless={
+					"text-white color "
+				}
+				bgpur={"bg-pur"}
+				textwhite={"text-white"}
+			/>
 			{children}
 			<Purple />
 			<Footer />

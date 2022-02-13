@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const CardTopPick = ({ price, location, name, img }) => {
+const CardTopPick = ({ id, price, location, name, img }) => {
 	return (
-		<article>
+		<Link to={`/apartment/${id}`}>
 			<img
 				src={img}
 				alt={name}
@@ -13,7 +14,7 @@ const CardTopPick = ({ price, location, name, img }) => {
 				<p className="text-ash-50 text-sm">{location}</p>
 				<p className="font-bold">{price}</p>
 			</footer>
-		</article>
+		</Link>
 	);
 };
 

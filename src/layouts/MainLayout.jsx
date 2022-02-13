@@ -8,8 +8,8 @@ const MainLayout = ({ children }) => {
 	return (
 		<>
 			<Header />
-			{children}
-			<Purple/>
+			<div className="mt-16 ">{children}</div>
+			<Purple />
 			<Footer />
 		</>
 	);
