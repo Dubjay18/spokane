@@ -8,7 +8,7 @@ import {
 	FaRegHeart,
 } from "react-icons/fa";
 import { BiChat } from "react-icons/bi";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 import Info from "../components/Info";
@@ -21,8 +21,6 @@ import { useCarousel } from "../context/CarouselApi";
 const ApartmentDetail = () => {
 	const { listRef, scrollLeft, scrollRight, showbtn, showScroll } =
 		useCarousel();
-	const { id } = useParams();
-	
 	const [imgSlide, setImgSlide] = useState(0);
 	const slideShow = [
 		"https://images.pexels.com/photos/584399/living-room-couch-interior-room-584399.jpeg",
