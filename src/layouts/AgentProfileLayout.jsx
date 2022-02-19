@@ -48,12 +48,12 @@ const AgentProfileLayout = ({ children }) => {
 								<div className="flex justify-between flex-wrap mt-5">
 									<div className="flex items-center gap-2 pl-5 relative bottom-8">
 										<img
-											className="object-cover h-20 w-20 md:h-24 md:w-24 rounded-full"
-											src="https://images.pexels.com/photos/2955375/pexels-photo-2955375.jpeg"
+											className="object-cover h-14 w-14 md:h-24 md:w-24 rounded-full"
+											src="https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg"
 											alt="profile"
 										/>
 										<div>
-											<h6 className="text-lg font-medium">
+											<h6 className="me:text-lg font-medium pt-1 md:pt-0">
 												Ajala Onile
 											</h6>
 											<p className="text-sm text-ash-50">
