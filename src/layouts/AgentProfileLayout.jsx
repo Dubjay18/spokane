@@ -5,7 +5,7 @@ import { MdEdit } from "react-icons/md";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Purple from "../components/Purple";
-import AgentSidebar from "../components/AgentSidebar";
+import AgentSidebar from "../components/agent/AgentSidebar";
 
 const AgentProfileLayout = ({ children }) => {
 	const [mobileTab, setMobileTab] = useState(false);

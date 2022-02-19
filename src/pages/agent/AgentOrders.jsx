@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import AgentProfileLayout from "../layouts/AgentProfileLayout";
-import ordersList from "../database/orders";
+import AgentProfileLayout from "../../layouts/AgentProfileLayout";
+import ordersList from "../../database/orders";
 
 const AgentOrders = () => {
 	const [orders, setOrders] = useState(ordersList);

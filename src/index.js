@@ -8,11 +8,11 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<CarouselApi>
+		<CarouselApi>
+			<BrowserRouter>
 				<App />
-			</CarouselApi>
-		</BrowserRouter>
+			</BrowserRouter>
+		</CarouselApi>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

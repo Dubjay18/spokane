@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import AgentProfileLayout from "../layouts/AgentProfileLayout";
-import CardType from "../components/CardType";
-import { data } from "../database/data";
+import AgentProfileLayout from "../../layouts/AgentProfileLayout";
+import CardType from "../../components/CardType";
+import { data } from "../../database/data";
 
 const AgentProfile = () => {
 	const subMenu = ["All", ...new Set(data.map((menu) => menu.type))];

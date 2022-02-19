@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
-import { FaTimes } from "react-icons/fa";
 
 import Profile from "../images/profile.png";
 
@@ -12,7 +11,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
 	const [menuBar, setMenuBar] = useState(false);
 
 	const handleMenu = () => {
-		setMenuBar(!menuBar);
+		setMenuBar(prevMenuBar => !prevMenuBar);
 	};
 
 	return (
@@ -79,7 +78,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
 						</li>
 						<li className="border border-gray-300 pl-3 pr-1 py-1 flex md:gap-x-1 xl:gap-x-3 justify-between items-center rounded-lg">
 							<Link to="/signup">Sign Up </Link>
-							<Link to="/">
+							<Link to="/agent-profile">
 								<img
 									className="w-8 border border-gray-300 rounded-xl object-cover"
 									src={Profile}

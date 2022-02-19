@@ -91,7 +91,7 @@ const ApartmentDetail = () => {
 						<div className="relative mt-2">
 							<img
 								src={slideShow[imgSlide]}
-								className="w-full object-cover h-52 md:h-72 lg:h-485"
+								className="w-full object-cover h-52 md:h-72 lg:h-485 overflow-hidden hover:scale-105 cursor-zoom-in trans"
 								alt="apartment"
 							/>
 							<button
@@ -230,7 +230,10 @@ const ApartmentDetail = () => {
 								<button className="text-pur">View all</button>
 							</div>
 							<div className="relative">
-								<ApartmentCarousel listRef={listRef} showScroll={showScroll}/>
+								<ApartmentCarousel
+									listRef={listRef}
+									showScroll={showScroll}
+								/>
 								{showbtn && (
 									<button
 										onClick={scrollRight}

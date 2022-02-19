@@ -1,6 +1,13 @@
 import React from "react";
-import { BsGrid1X2Fill, BsBag, BsGraphDown, BsListTask } from "react-icons/bs";
-import { IoMdSettings, IoMdChatboxes } from "react-icons/io";
+import {
+	BsGrid1X2Fill,
+	BsBag,
+	BsGraphDown,
+	BsListTask,
+	BsBell,
+} from "react-icons/bs";
+import { IoMdSettings, IoMdChatboxes, IoMdPaper } from "react-icons/io";
+import { BiTransfer } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
 
 const AgentSidebar = ({ setMobileTab }) => {
@@ -12,14 +19,29 @@ const AgentSidebar = ({ setMobileTab }) => {
 		{ title: "Products", icon: <BsBag />, link: "agent-products" },
 		{ title: "Orders", icon: <BsListTask />, link: "agent-orders" },
 		{
+			title: "Notifications",
+			icon: <BsBell />,
+			link: "agent-notification",
+		},
+		{
 			title: "Messages",
 			icon: <IoMdChatboxes />,
 			link: "agent-messages",
 		},
 		{
+			title: "Transactions",
+			icon: <BiTransfer />,
+			link: "agent-transactions",
+		},
+		{
 			title: "Statistics",
 			icon: <BsGraphDown />,
 			link: "agent-statistics",
+		},
+		{
+			title: "Policy",
+			icon: <IoMdPaper />,
+			link: "policy",
 		},
 		{
 			title: "Settings",
