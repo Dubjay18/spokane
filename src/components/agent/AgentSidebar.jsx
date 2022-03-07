@@ -51,9 +51,10 @@ const AgentSidebar = ({ setMobileTab }) => {
 	];
 	return (
 		<div className="rounded-lg py-8 px-5 bg-pur-50 lg:h-full">
-			{sidebar.map((item) => {
+			{sidebar.map((item, index) => {
 				return (
 					<button
+						key={index}
 						className="w-full"
 						onClick={() => setMobileTab(false)}
 					>

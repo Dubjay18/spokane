@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
 import Profile from "../images/profile.png";
+import Logo from "../images/home_logo.png";
 
 const Header = ({ headless, bgpur, textwhite }) => {
 	const location = useLocation();
@@ -11,7 +12,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
 	const [menuBar, setMenuBar] = useState(false);
 
 	const handleMenu = () => {
-		setMenuBar(prevMenuBar => !prevMenuBar);
+		setMenuBar((prevMenuBar) => !prevMenuBar);
 	};
 
 	return (
@@ -25,7 +26,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
 						to="/"
 						className={`text-3xl ${textwhite} font-roboto font-bold logo`}
 					>
-						houseFree
+						<img src={Logo} alt="housefree" className="w-20"/>
 					</Link>
 					<button className="md:hidden" onClick={handleMenu}>
 						<FaBars size={20} />

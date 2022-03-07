@@ -23,9 +23,9 @@ const ApartmentDetail = () => {
 		useCarousel();
 	const [imgSlide, setImgSlide] = useState(0);
 	const slideShow = [
-		"https://images.pexels.com/photos/584399/living-room-couch-interior-room-584399.jpeg",
-		"https://images.pexels.com/photos/2631746/pexels-photo-2631746.jpeg",
-		"https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg",
+		require("../images/living-room-couch.jpeg"),
+		require("../images/bedroom.jpeg"),
+		require("../images/kitchen.jpeg")
 	];
 
 	const checkIndex = (index) => {
@@ -89,7 +89,7 @@ const ApartmentDetail = () => {
 						<div className="relative mt-2">
 							<img
 								src={slideShow[imgSlide]}
-								className="w-full object-cover h-52 md:h-72 lg:h-485 overflow-hidden hover:scale-105 cursor-zoom-in trans"
+								className="w-full object-cover h-52 md:h-72 lg:h-485 overflow-hidden cursor-zoom-in trans"
 								alt="apartment"
 							/>
 							<button

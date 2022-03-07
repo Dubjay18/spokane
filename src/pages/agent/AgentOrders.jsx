@@ -28,7 +28,7 @@ const AgentOrders = () => {
 	};
 	return (
 		<AgentProfileLayout>
-			<section className="flex gap-3 text-center flex-wrap">
+			<section className="flex gap-3 text-center flex-wrap ">
 				{orderMenu.map((item, index) => {
 					return (
 						<button
@@ -49,7 +49,7 @@ const AgentOrders = () => {
 					);
 				})}
 			</section>
-			<section className="bg-pur-50 p-5 rounded-md text-sm ">
+			<section className="bg-pur-50 p-5 rounded-md text-sm font-poppins">
 				<div className="flex flex-wrap justify-between font-bold text-ash-400 px-2 lg:px-4">
 					{subOrder.map((item, index) => {
 						return (

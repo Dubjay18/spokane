@@ -5,18 +5,22 @@ import AgentProfileLayout from "../../layouts/AgentProfileLayout";
 import { agentTransaction } from "../../database/transactions";
 
 const AgentTransactions = () => {
-
-    const tableHead = ["status", "description", "amount","type", "date"]
+	const tableHead = ["status", "description", "amount", "date"];
 	return (
 		<AgentProfileLayout>
 			<h1 className="text-xl text-pur md:text-2xl font-bold">
 				{agentTransaction.length} Transactions
 			</h1>
-			<table class="overflow-x-auto w-full mt-5 bg-pur-50 text-xs md:text-sm lg:text-base">
+			<table className="overflow-x-auto w-full mt-5 bg-pur-50 text-xs md:text-sm lg:text-base font-poppins">
 				<thead>
 					<tr>
 						{tableHead.map((item, index) => (
-							<th key={index} className='capitalize p-3 md:p-5 font-bold'>{item}</th>
+							<th
+								key={index}
+								className="capitalize p-3 md:p-5 font-bold"
+							>
+								{item}
+							</th>
 						))}
 					</tr>
 				</thead>
@@ -27,7 +31,6 @@ const AgentTransactions = () => {
 							description: desc,
 							amount,
 							date,
-							type,
 						} = item;
 						return (
 							<tr
@@ -53,7 +56,6 @@ const AgentTransactions = () => {
 								<td className="py-3 md:py-4 font-medium">
 									₦{amount}
 								</td>
-								<td className="py-3 md:py-4">{type}</td>
 								<td className="py-3 md:py-4">{date}</td>
 							</tr>
 						);

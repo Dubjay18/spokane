@@ -45,7 +45,7 @@ const UserLogin = () => {
 								placeholder="Password"
 							/>
 							<button className="btn text-white h-btn font-bold bg-pur md:text-lg mt-8 w-full">
-								Login
+								<Link to="/user-profile">Login</Link>
 							</button>
 						</form>
 						<p className="text-secondary mt-4">

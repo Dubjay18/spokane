@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 import AgentProfileLayout from "../../layouts/AgentProfileLayout";
 import CardType from "../../components/CardType";
+import ProfileImage from "../../components/agent/ProfileImage";
 import { data } from "../../database/data";
 
 const AgentProfile = () => {
@@ -19,6 +19,8 @@ const AgentProfile = () => {
 	};
 	return (
 		<AgentProfileLayout>
+			<ProfileImage/>
+			
 			<section className="container pb-8 lg:px-7">
 				<h4 className="text-xl font-medium ">Categories</h4>
 				<div className="flex gap-1 justify-evenly md:justify-start flex-wrap py-3 text-ash-300">
@@ -43,12 +45,7 @@ const AgentProfile = () => {
 				</div>
 				<div className="grid py-3 gap-y-10 gap-x-6 md:grid-cols-3">
 					{list.map((typ, index) => {
-						const name = typ.name.replace(/\s+/g, "-");
-						return (
-							<Link to={`/detail/${name}`}>
-								<CardType key={index} {...typ} />
-							</Link>
-						);
+						return <CardType key={index} {...typ} />;
 					})}
 				</div>
 				<div className="text-center pb-8">
