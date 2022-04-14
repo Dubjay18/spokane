@@ -5,16 +5,20 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import CarouselApi from "./context/CarouselApi";
 import reportWebVitals from "./reportWebVitals";
+import { StateProvider } from "./context/stateProvider";
+import reducer, { initialState } from "./context/reducer";
 
 ReactDOM.render(
-	<React.StrictMode>
-		<CarouselApi>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</CarouselApi>
-	</React.StrictMode>,
-	document.getElementById("root")
+  <React.StrictMode>
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <CarouselApi>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CarouselApi>
+    </StateProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
