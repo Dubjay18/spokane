@@ -25,6 +25,8 @@ import AgentNotification from "./pages/agent/AgentNotification";
 import AgentEditProfile from "./pages/agent/AgentEditProfile";
 import AgentTransactions from "./pages/agent/AgentTransactions";
 import { useStateValue } from "./context/stateProvider";
+import UserOtpVerification from "./pages/user/UserOtpVerification";
+import UserPasswordReset from "./pages/user/UserPasswordReset";
 function App() {
   const [{ user }] = useStateValue();
   return (
@@ -55,6 +57,8 @@ function App() {
       <Route path="/user-messages" element={<UserMessage />} />
       <Route path="/user-transactions" element={<UserTransactions />} />
       <Route path="/user-notification" element={<UserNotification />} />
+      <Route path="/otp" element={<UserOtpVerification />} />
+      <Route path="/forgot_password" element={<UserPasswordReset />} />
     </Routes>
   );
 }

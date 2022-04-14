@@ -235,7 +235,7 @@ const UserLogin = () => {
                 </Link>
               </p>
               <p
-                className="text-pur font-medium md:text-lg mt-3"
+                className="text-pur font-medium md:text-lg mt-3 cursor-pointer"
                 onClick={() => {
                   setOtp(true);
                 }}
