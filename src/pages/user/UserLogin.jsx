@@ -37,7 +37,7 @@ const UserLogin = () => {
         axios
           .get("https://freehouses.herokuapp.com/api/v1/profile/", {
             headers: {
-              Authorization: "AccesToken" + " " + token,
+              Authorization: "Token" + " " + token,
             },
           })
           .then((response) => console.log(response))
