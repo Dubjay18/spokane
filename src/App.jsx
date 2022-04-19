@@ -50,7 +50,10 @@ function App() {
       <Route path="/edit-profile" element={<AgentEditProfile />} />
       <Route path="/agent-transactions" element={<AgentTransactions />} />
       {/* USER ROUTES */}
-      <Route path="/login" element={user ? <Home /> : <UserLogin />}></Route>
+      <Route
+        path="/login"
+        element={user ? <UserProfile /> : <UserLogin />}
+      ></Route>
       <Route path="/signup" element={<UserSignup />} />
       <Route path="/edit-userprofile" element={<UserEditProfile />} />
       <Route path="/user-profile" element={<UserProfile />} />

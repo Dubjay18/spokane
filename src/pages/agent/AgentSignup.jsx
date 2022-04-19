@@ -1,10 +1,44 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
+import Select from "react-select";
+import countryList from "react-select-country-list";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 import MainLayout from "../../layouts/MainLayout";
+import axios from "axios";
 
 const AgentSignup = () => {
+  const [value, setValue] = useState("");
+  const [email, setEmail] = useState("");
+  const [entry, setEntry] = useState("Agent");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [homeAddress, setHomeAddress] = useState("");
+  const [name, setName] = useState("");
+  const options = useMemo(() => countryList().getData(), []);
+  console.log(options);
+
+  const changeHandler = (value) => {
+    setValue(value);
+  };
+  const register = (e) => {
+    e.preventDefault();
+    console.log(phoneNumber);
+    axios
+      .post("https://freehouses.herokuapp.com/api/v1/agent/registration/", {
+        name: name,
+        entry: entry,
+        password: password,
+        password2: password2,
+        country: value.value,
+        email: email,
+        phone_number: phoneNumber,
+        home_address: homeAddress,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   return (
     <MainLayout>
       <main className="px-5 md:px-16 xl:px-52 pt-2">
@@ -19,49 +53,70 @@ const AgentSignup = () => {
             <h4 className="font-bold text-center md:text-left text-2xl lg:text-3xl mb-5">
               Create Account
             </h4>
-            <button className="flex items-center rounded-xl justify-center gap-4 border input-box text-center">
-              <span>
-                <FcGoogle size={25} />
-              </span>
-              <span className="tracking-tight">Sign up with Google</span>
-            </button>
-            <p className="py-5 text-center font-medium text-lg text-secondary">
-              - OR -
-            </p>
+
             <form className="">
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
                 placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="email"
                 placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
                 placeholder="Home Address"
+                value={homeAddress}
+                onChange={(e) => setHomeAddress(e.target.value)}
               />
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                type="text"
-                placeholder="Country"
+                type="number"
+                placeholder="Phonenumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+
+              <Select
+                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                placeholder={"Country"}
+                options={options}
+                value={value}
+                onChange={changeHandler}
               />
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
                 placeholder="Entry"
-                value={"Agent"}
+                value={entry}
+                onChange={(e) => setEntry(e.target.value)}
+              />
+              <input
+                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <input
                 className="input-box italic bg-ash-100 outline-gray-400"
                 type="password"
-                placeholder="Password"
+                placeholder="Confirm Password"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
               />
 
-              <button className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full">
+              <button
+                className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full"
+                onClick={register}
+              >
                 Create Account
               </button>
             </form>

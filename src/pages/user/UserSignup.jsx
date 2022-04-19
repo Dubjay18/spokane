@@ -14,6 +14,7 @@ const UserSignup = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState("");
   const [entry, setEntry] = useState("Tenant");
+  const [error, setError] = React.useState(null);
   const options = useMemo(() => countryList().getData(), []);
   const changeHandler = (value) => {
     setCountry(value);
@@ -31,6 +32,8 @@ const UserSignup = () => {
     }
   ) {
     // Default options are marked with *
+    e.preventDefault();
+    setError(null);
     await fetch(url, {
       method: "POST",
       mode: "cors", // no-cors, *cors, same-origin
@@ -47,8 +50,8 @@ const UserSignup = () => {
       .then((data) => {
         console.log("Success:", data);
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch((res) => {
+        setError(res.response.data.message);
       });
   }
   return (
@@ -65,15 +68,7 @@ const UserSignup = () => {
             <h4 className="font-bold text-center md:text-left text-2xl lg:text-3xl mb-5">
               Create Account
             </h4>
-            <button className="flex items-center rounded-xl justify-center gap-4 border input-box text-center">
-              <span>
-                <FcGoogle size={25} />
-              </span>
-              <span className="tracking-tight">Sign up with Google</span>
-            </button>
-            <p className="py-5 text-center font-medium text-lg text-secondary">
-              - OR -
-            </p>
+
             <form className="">
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
@@ -90,8 +85,8 @@ const UserSignup = () => {
 
               <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
                 <label className="text-gray-400">
-                  Country
                   <Select
+                    placeholder={"Country"}
                     options={options}
                     value={country}
                     onChange={(e) => changeHandler(e)}

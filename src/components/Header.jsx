@@ -18,8 +18,9 @@ const Header = ({ headless, bgpur, textwhite }) => {
     setMenuBar((prevMenuBar) => !prevMenuBar);
   };
   const logout = () => {
+    console.log(token);
     axios
-      .get(`https://freehouses.herokuapp.com/api/v1/logout-jwt/`, {
+      .get(`https://freehouses.herokuapp.com/api/v1/logout/`, {
         headers: { Authorization: "AccessToken" + " " + token },
       })
       .then(() => {
@@ -86,7 +87,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
                 </li>
                 <li className="text-3xl hidden md:block text-gray-400">|</li>
                 <li
-                  className="border border-gray-300 pl-3 pr-1 py-1 flex md:gap-x-1 xl:gap-x-3 justify-between items-center rounded-lg"
+                  className="border border-gray-300 pl-3 pr-1 py-1 flex md:gap-x-1 xl:gap-x-3 justify-between items-center rounded-lg cursor-pointer"
                   onClick={logout}
                 >
                   Logout

@@ -1,8 +1,10 @@
 export const initialState = {
   user: null,
+  agent: null,
 };
 export const actionTypes = {
   SET_USER: "SET_USER",
+  SET_AGENT: "SET_AGENT",
   SET_TOKEN: "SET_TOKEN",
   SET_QEMAIL: "SET_QEMAIL",
 };
@@ -14,6 +16,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+      };
+    case actionTypes.SET_AGENT:
+      return {
+        ...state,
+        user: action.agent,
       };
     case actionTypes.SET_TOKEN:
       return {

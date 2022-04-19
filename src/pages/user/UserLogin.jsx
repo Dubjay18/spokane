@@ -12,43 +12,40 @@ const UserLogin = () => {
   const [verifyOtp, setVerifyOtp] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [otp, setOtp] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  const [tempToken, setTempToken] = React.useState("");
   const [{ user, token }, dispatch] = useStateValue();
   function login(e) {
     e.preventDefault();
+    setError(null);
     axios
       .post("https://freehouses.herokuapp.com/api/v1/login/", {
         email: email,
         password: password,
       })
-      .then(function (response) {
-        console.log(response);
-
-        console.log(user);
+      .then((res) => {
+        console.log(res.status);
         dispatch({
           type: "SET_TOKEN",
-          token: response.data.Token,
+          token: res.data.Token,
         });
-        const config = {
-          headers: {
-            Authorization:
-              "Bearer" + "a73c8c7bef95001e9e54729a03c26713509585db",
-          },
-        };
+
         axios
           .get("https://freehouses.herokuapp.com/api/v1/profile/", {
             headers: {
-              Authorization: "Token" + " " + token,
+              Authorization: "Token" + " " + res.data.Token,
             },
           })
-          .then((response) => console.log(response))
+          .then((response) => {
+            dispatch({
+              type: "SET_USER",
+              user: response.data.full_name,
+            });
+          })
           .catch((err) => console.error(err));
-        dispatch({
-          type: "SET_USER",
-          user: email,
-        });
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((res) => {
+        setError(res?.response?.data.message);
       });
   }
   const verify = (e) => {
@@ -58,7 +55,6 @@ const UserLogin = () => {
         email: verifyEmail,
       })
       .then((data) => {
-        console.log(data);
         setVerifyOtp(true);
       })
       .catch((err) => console.log(err));
@@ -201,7 +197,6 @@ const UserLogin = () => {
                   Sign in with Google{" "}
                 </span>
               </button>
-
               <p className="py-5 text-center font-medium text-lg text-secondary">
                 - OR -
               </p>
@@ -225,7 +220,7 @@ const UserLogin = () => {
                   type="submit"
                   onClick={login}
                 >
-                  <Link to="/user-profile">Login</Link>
+                  Login
                 </button>
               </form>
               <p className="text-secondary mt-4">
@@ -242,6 +237,11 @@ const UserLogin = () => {
               >
                 Forgot Password?
               </p>
+              {error && (
+                <div className="text-red-600 animate-pulse mt-16">
+                  <p>{error}</p>
+                </div>
+              )}
             </div>
           )}
         </div>
