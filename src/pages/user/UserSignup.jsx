@@ -19,20 +19,19 @@ const UserSignup = () => {
   const changeHandler = (value) => {
     setCountry(value);
   };
-  async function Register(
-    url = "https://freehouses.herokuapp.com/api/v1/user/registration/",
-    data = {
-      name: name,
-      email: email,
-      password: password,
-      password2: password2,
-      country: country,
-      phone_number: phoneNumber,
-      entry: entry,
-    }
-  ) {
+  async function Register(e) {
     // Default options are marked with *
     e.preventDefault();
+    (url = "https://freehouses.herokuapp.com/api/v1/user/registration/"),
+      (data = {
+        name: name,
+        email: email,
+        password: password,
+        password2: password2,
+        country: country,
+        phone_number: phoneNumber,
+        entry: entry,
+      });
     setError(null);
     await fetch(url, {
       method: "POST",
@@ -74,13 +73,13 @@ const UserSignup = () => {
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
                 placeholder="Full Name"
-                onChange={(e) => setName(e)}
+                onChange={(e) => setName(e.target.value)}
               />
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="email"
                 placeholder="Email Address"
-                onChange={(e) => setEmail(e)}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
@@ -89,7 +88,7 @@ const UserSignup = () => {
                     placeholder={"Country"}
                     options={options}
                     value={country}
-                    onChange={(e) => changeHandler(e)}
+                    onChange={(e) => changeHandler(e.target.value)}
                   />
                 </label>
               </div>
@@ -109,13 +108,13 @@ const UserSignup = () => {
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="password"
                 placeholder="Password"
-                onChange={(e) => setPassword(e)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <input
                 className="input-box italic bg-ash-100 outline-gray-400"
                 type="password2"
                 placeholder="Confirm Password"
-                onChange={(e) => setPassword2(e)}
+                onChange={(e) => setPassword2(e.target.value)}
               />
               <button className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full">
                 Create Account
