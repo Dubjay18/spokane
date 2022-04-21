@@ -21,7 +21,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
     console.log(token);
     axios
       .get(`https://freehouses.herokuapp.com/api/v1/logout/`, {
-        headers: { Authorization: "AccessToken" + " " + token },
+        headers: { Authorization: "Token" + " " + token },
       })
       .then(() => {
         dispatch({
