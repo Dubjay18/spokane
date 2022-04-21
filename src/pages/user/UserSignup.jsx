@@ -22,16 +22,16 @@ const UserSignup = () => {
   async function Register(e) {
     // Default options are marked with *
     e.preventDefault();
-    (url = "https://freehouses.herokuapp.com/api/v1/user/registration/"),
-      (data = {
-        name: name,
-        email: email,
-        password: password,
-        password2: password2,
-        country: country,
-        phone_number: phoneNumber,
-        entry: entry,
-      });
+    const url = "https://freehouses.herokuapp.com/api/v1/user/registration/";
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+      password2: password2,
+      country: country,
+      phone_number: phoneNumber,
+      entry: entry,
+    };
     setError(null);
     await fetch(url, {
       method: "POST",
