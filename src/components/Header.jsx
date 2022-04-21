@@ -67,9 +67,14 @@ const Header = ({ headless, bgpur, textwhite }) => {
 			`}
         >
           <ul className="flex flex-col md:items-center md:flex-row gap-y-3 md:gap-5 md:justify-evenly lg:justify-between mt-5 md:mt-0">
-            <li className={splitLocation[1] === "login" ? "active-nav" : ""}>
-              <Link to="/login">Login</Link>
-            </li>
+            {user ? (
+              ""
+            ) : (
+              <li className={splitLocation[1] === "login" ? "active-nav" : ""}>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
+
             <li className={splitLocation[1] === "about-us" ? "active-nav" : ""}>
               <Link to="/about-us">About Us</Link>
             </li>
