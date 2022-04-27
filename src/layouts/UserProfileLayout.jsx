@@ -17,7 +17,7 @@ const UserProfileLayout = ({ children }) => {
 			<main className="px-3 mt-16 md:px-8 container py-5 md:py-10">
 				<div className="flex text-pur justify-between items-center">
 					<h1 className="text-2xl md:text-3xl font-bold ">
-						Agent Page
+						User Page
 					</h1>
 					<button className="lg:hidden text-xl" onClick={showTab}>
 						{mobileTab ? (

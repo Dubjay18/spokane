@@ -24,11 +24,16 @@ import AddProduct from "./pages/agent/AddProduct";
 import AgentNotification from "./pages/agent/AgentNotification";
 import AgentEditProfile from "./pages/agent/AgentEditProfile";
 import AgentTransactions from "./pages/agent/AgentTransactions";
-import { useStateValue } from "./context/stateProvider";
+
 import UserOtpVerification from "./pages/user/UserOtpVerification";
 import UserPasswordReset from "./pages/user/UserPasswordReset";
-function App() {
-  const [{ user }] = useStateValue();
+import { useSelector } from "react-redux";
+
+function App(props) {
+  const username = useSelector((state) => state.username);
+  const userEmail = useSelector((state) => state.email);
+  const userToken = useSelector((state) => state.token);
+  const userEntry = useSelector((state) => state.entry);
   return (
     <Routes>
       {/* GENERAL ROUTES */}
@@ -52,11 +57,24 @@ function App() {
       {/* USER ROUTES */}
       <Route
         path="/login"
-        element={user ? <UserProfile /> : <UserLogin />}
+        element={
+          username ? (
+            userEntry === "agent" ? (
+              <AgentProfile props={props} />
+            ) : (
+              <UserProfile props={props} />
+            )
+          ) : (
+            <UserLogin props={props} />
+          )
+        }
       ></Route>
       <Route path="/signup" element={<UserSignup />} />
-      <Route path="/edit-userprofile" element={<UserEditProfile />} />
-      <Route path="/user-profile" element={<UserProfile />} />
+      <Route
+        path="/edit-userprofile"
+        element={<UserEditProfile props={props} />}
+      />
+      <Route path="/user-profile" element={<UserProfile props={props} />} />
       <Route path="/user-messages" element={<UserMessage />} />
       <Route path="/user-transactions" element={<UserTransactions />} />
       <Route path="/user-notification" element={<UserNotification />} />

@@ -1,52 +1,86 @@
 import React, { useCallback } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { useStateValue } from "../../context/stateProvider";
+
 import axios from "axios";
 import MainLayout from "../../layouts/MainLayout";
 import GoogleLogin from "react-google-login";
-
-const UserLogin = () => {
-  const [email, setEmail] = React.useState("");
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setUsername,
+  setEmail,
+  setToken,
+  setEntry,
+} from "../../actionTypes/newUser";
+import { user } from "../../reducer";
+import { configureStore } from "@reduxjs/toolkit";
+let store = configureStore({
+  reducer: user,
+});
+const UserLogin = (props) => {
+  const [email, setEmailN] = React.useState("");
   const [verifyEmail, setVerifyEmail] = React.useState("");
   const [verifyOtp, setVerifyOtp] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [otp, setOtp] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [tempToken, setTempToken] = React.useState("");
-  const [{ user, token }, dispatch] = useStateValue();
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.username);
+  const userEmail = useSelector((state) => state.email);
+  const userToken = useSelector((state) => state.token);
+  const userEntry = useSelector((state) => state.entry);
+  const setUser = (name) => {
+    dispatch(setUsername(name));
+    console.log(username);
+  };
+  const setUserToken = (e) => {
+    dispatch(setToken(e));
+    console.log(userEmail);
+  };
+  const setUserEmail = (e) => {
+    dispatch(setEmail(e));
+    console.log(userToken);
+  };
+  const setUserEntry = (e) => {
+    dispatch(setEntry(e));
+    console.log(userEntry);
+  };
+
   function login(e) {
     e.preventDefault();
-    setError(null);
-    axios
-      .post("https://freehouses.herokuapp.com/api/v1/login/", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res.status);
-        dispatch({
-          type: "SET_TOKEN",
-          token: res.data.Token,
-        });
+    if (email === "") {
+      alert("type Email");
+    } else if (password === "") {
+      alert("Type password");
+    } else {
+      setError(null);
+      axios
+        .post("https://freehouses.herokuapp.com/api/v1/login/", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res.status);
+          setUserToken(res.data.Token);
 
-        axios
-          .get("https://freehouses.herokuapp.com/api/v1/profile/", {
-            headers: {
-              Authorization: "Token" + " " + res.data.Token,
-            },
-          })
-          .then((response) => {
-            dispatch({
-              type: "SET_USER",
-              user: response.data.full_name,
-            });
-          })
-          .catch((err) => console.error(err));
-      })
-      .catch((res) => {
-        setError(res?.response?.data.message);
-      });
+          axios
+            .get(`https://freehouses.herokuapp.com/api/v1/profile/${email}`, {
+              headers: {
+                Authorization: "Token" + " " + res.data.Token,
+              },
+            })
+            .then((response) => {
+              setUserEntry(response.data.entry);
+              setUser(response.data.full_name);
+              setUserEmail(response.data.email);
+            })
+            .catch((err) => console.error(err));
+        })
+        .catch((res) => {
+          setError(res?.response?.data.message);
+        });
+    }
   }
   const verify = (e) => {
     e.preventDefault();
@@ -201,12 +235,17 @@ const UserLogin = () => {
                 - OR -
               </p>
               <form className="">
+                {error && (
+                  <div className="text-red-600 animate-pulse mt-16">
+                    <p>{error}</p>
+                  </div>
+                )}
                 <input
                   className="input-box italic mb-4 outline-gray-400 bg-ash-100"
                   type="email"
                   placeholder="Email Address"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmailN(e.target.value)}
                 />
                 <input
                   className="input-box italic bg-ash-100 outline-gray-400"
@@ -237,11 +276,6 @@ const UserLogin = () => {
               >
                 Forgot Password?
               </p>
-              {error && (
-                <div className="text-red-600 animate-pulse mt-16">
-                  <p>{error}</p>
-                </div>
-              )}
             </div>
           )}
         </div>

@@ -4,35 +4,56 @@ import { FaBars } from "react-icons/fa";
 
 import Profile from "../images/profile.png";
 import Logo from "../images/home_logo.png";
-import { useStateValue } from "../context/stateProvider";
+import {
+  setUsername,
+  setEmail,
+  setToken,
+  setEntry,
+} from "../actionTypes/newUser";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = ({ headless, bgpur, textwhite }) => {
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
   const [menuBar, setMenuBar] = useState(false);
-  const [{ user, token }, dispatch] = useStateValue();
-
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.username);
+  const userEmail = useSelector((state) => state.email);
+  const userToken = useSelector((state) => state.token);
+  const userEntry = useSelector((state) => state.entry);
+  const setUser = (name) => {
+    dispatch(setUsername(name));
+    console.log(username);
+  };
+  const setUserToken = (e) => {
+    dispatch(setToken(e));
+    console.log(userEmail);
+  };
+  const setUserEmail = (e) => {
+    dispatch(setEmail(e));
+    console.log(userToken);
+  };
+  const setUserEntry = (e) => {
+    dispatch(setEntry(e));
+    console.log(userEntry);
+  };
   const handleMenu = () => {
     setMenuBar((prevMenuBar) => !prevMenuBar);
   };
   const logout = () => {
-    console.log(token);
+    console.log(userToken);
     axios
       .get(`https://freehouses.herokuapp.com/api/v1/logout/`, {
-        headers: { Authorization: "Token" + " " + token },
+        headers: { Authorization: "Token" + " " + userToken },
       })
       .then(() => {
-        dispatch({
-          type: "SET_USER",
-          user: null,
-        });
-        console.log(user);
-        dispatch({
-          type: "SET_TOKEN",
-          token: null,
-        });
+        setUser(null);
+
+        console.log(username);
+        setUserToken(null);
+        console.log(userToken);
       })
       .catch(function (error) {
         // handle error
@@ -67,7 +88,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
 			`}
         >
           <ul className="flex flex-col md:items-center md:flex-row gap-y-3 md:gap-5 md:justify-evenly lg:justify-between mt-5 md:mt-0">
-            {user ? (
+            {username ? (
               ""
             ) : (
               <li className={splitLocation[1] === "login" ? "active-nav" : ""}>
@@ -85,22 +106,17 @@ const Header = ({ headless, bgpur, textwhite }) => {
             </li>
           </ul>
           <ul className="flex flex-col md:flex-row md:items-center mt-3 md:mt-0 gap-y-3 gap-x-4 lg:justify-end">
-            {user ? (
+            {username ? (
               <>
                 <li className={`xl:mr-4`}>
-                  <Link to="/"> {user}</Link>
+                  <Link to="/"> {username}</Link>
                 </li>
                 <li className="text-3xl hidden md:block text-gray-400">|</li>
                 <li
                   className="border border-gray-300 pl-3 pr-1 py-1 flex md:gap-x-1 xl:gap-x-3 justify-between items-center rounded-lg cursor-pointer"
                   onClick={logout}
                 >
-                  Logout
-                  <img
-                    className="w-8 border border-gray-300 rounded-xl object-cover"
-                    src={Profile}
-                    alt="profile"
-                  />
+                  Log Out
                 </li>
               </>
             ) : (
