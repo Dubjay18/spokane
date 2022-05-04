@@ -64,7 +64,7 @@ const UserLogin = (props) => {
         .then((res) => {
           console.log(res.status);
           setUserToken(res.data.Token);
-          localStorage.setItem("spokanetoken", res.data.Token);
+          window.localStorage.setItem("spokanetoken", res.data.Token);
 
           axios
             .get(`https://freehouses.herokuapp.com/api/v1/profile/${email}`, {
@@ -76,7 +76,7 @@ const UserLogin = (props) => {
               setUserEntry(response.data.entry);
               setUser(response.data.full_name);
               setUserEmail(response.data.email);
-              localStorage.setItem(
+              window.localStorage.setItem(
                 "spokaneuser",
                 JSON.stringify({
                   username: response.data.full_name,
@@ -85,7 +85,10 @@ const UserLogin = (props) => {
                 })
               );
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+              console.error(err);
+              alert("Error, Try Again");
+            });
         })
         .catch((res) => {
           setError(res?.response?.data.message);
