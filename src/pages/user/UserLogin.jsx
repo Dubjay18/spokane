@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import MainLayout from "../../layouts/MainLayout";
@@ -25,6 +25,7 @@ const UserLogin = (props) => {
   const [otp, setOtp] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [tempToken, setTempToken] = React.useState("");
+  const Navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.username);
   const userEmail = useSelector((state) => state.email);
@@ -63,6 +64,7 @@ const UserLogin = (props) => {
         .then((res) => {
           console.log(res.status);
           setUserToken(res.data.Token);
+          localStorage.setItem("spokanetoken", res.data.Token);
 
           axios
             .get(`https://freehouses.herokuapp.com/api/v1/profile/${email}`, {
@@ -74,12 +76,21 @@ const UserLogin = (props) => {
               setUserEntry(response.data.entry);
               setUser(response.data.full_name);
               setUserEmail(response.data.email);
+              localStorage.setItem(
+                "spokaneuser",
+                JSON.stringify({
+                  username: response.data.full_name,
+                  useremail: response.data.email,
+                  userentry: response.data.entry,
+                })
+              );
             })
             .catch((err) => console.error(err));
         })
         .catch((res) => {
           setError(res?.response?.data.message);
         });
+      Navigate("/user-profile");
     }
   }
   const verify = (e) => {

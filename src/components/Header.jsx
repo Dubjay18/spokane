@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
 import Profile from "../images/profile.png";
@@ -14,6 +14,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 const Header = ({ headless, bgpur, textwhite }) => {
+  const Navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
@@ -54,6 +55,8 @@ const Header = ({ headless, bgpur, textwhite }) => {
         console.log(username);
         setUserToken(null);
         console.log(userToken);
+        localStorage.clear();
+        Navigate("/login");
       })
       .catch(function (error) {
         // handle error

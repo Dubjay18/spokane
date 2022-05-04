@@ -24,16 +24,53 @@ import AddProduct from "./pages/agent/AddProduct";
 import AgentNotification from "./pages/agent/AgentNotification";
 import AgentEditProfile from "./pages/agent/AgentEditProfile";
 import AgentTransactions from "./pages/agent/AgentTransactions";
-
+import {
+  setUsername,
+  setEmail,
+  setToken,
+  setEntry,
+} from "./actionTypes/newUser";
 import UserOtpVerification from "./pages/user/UserOtpVerification";
 import UserPasswordReset from "./pages/user/UserPasswordReset";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function App(props) {
+  const dispatch = useDispatch();
   const username = useSelector((state) => state.username);
   const userEmail = useSelector((state) => state.email);
   const userToken = useSelector((state) => state.token);
   const userEntry = useSelector((state) => state.entry);
+  const setUser = (name) => {
+    dispatch(setUsername(name));
+    console.log(username);
+  };
+  const setUserToken = (e) => {
+    dispatch(setToken(e));
+    console.log(userEmail);
+  };
+  const setUserEmail = (e) => {
+    dispatch(setEmail(e));
+    console.log(userToken);
+  };
+  const setUserEntry = (e) => {
+    dispatch(setEntry(e));
+    console.log(userEntry);
+  };
+  const storedToken = localStorage.getItem("spokanetoken");
+  const spokaneUser = JSON.parse(localStorage.getItem("spokaneuser"));
+
+  useEffect(() => {
+    console.log(storedToken, spokaneUser);
+    if (storedToken || spokaneUser) {
+      console.log("test");
+      setUserToken(storedToken);
+      setUser(spokaneUser.username);
+      setUserEmail(spokaneUser.useremail);
+      setUserEntry(spokaneUser.userentry);
+    }
+  }, []);
+
   return (
     <Routes>
       {/* GENERAL ROUTES */}
@@ -55,20 +92,7 @@ function App(props) {
       <Route path="/edit-profile" element={<AgentEditProfile />} />
       <Route path="/agent-transactions" element={<AgentTransactions />} />
       {/* USER ROUTES */}
-      <Route
-        path="/login"
-        element={
-          username ? (
-            userEntry === "agent" ? (
-              <AgentProfile props={props} />
-            ) : (
-              <UserProfile props={props} />
-            )
-          ) : (
-            <UserLogin props={props} />
-          )
-        }
-      ></Route>
+      <Route path="/login" element={<UserLogin props={props} />}></Route>
       <Route path="/signup" element={<UserSignup />} />
       <Route
         path="/edit-userprofile"

@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import FileUpload from "../../components/FileUpload";
 
 import AgentProfileLayout from "../../layouts/AgentProfileLayout";
@@ -11,6 +13,11 @@ const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [productName, setProductName] = useState("");
+  const [location, setLocation] = useState("lagos");
+  const username = useSelector((state) => state.username);
+  const userEmail = useSelector((state) => state.email);
+  const userToken = useSelector((state) => state.token);
+  const userEntry = useSelector((state) => state.entry);
 
   const SelectImage = (img) => {
     setImage([...img, ...image]);
@@ -38,9 +45,44 @@ const AddProduct = () => {
   const removeTag = (id) => {
     setTags(tags.filter((tag) => tag.id !== id));
   };
+  const toBase64 = (str) =>
+    typeof window === "undefined"
+      ? Buffer.from(str).toString("base64")
+      : window.btoa(str);
 
   const handleAdd = (e) => {
     e.preventDefault();
+    axios
+      .post(
+        `https://freehouses.herokuapp.com/api/v1/apartment/post/`,
+
+        {
+          apartment_title: productName,
+          category: category,
+          price: price,
+          location: location,
+          is_available: true,
+          agent: username,
+
+          user_id: "2334c2a3-3b71-464c-abd9-8daef267b41b",
+        },
+        {
+          headers: {
+            Authorization: "Token" + " " + userToken,
+          },
+        }
+      )
+      .then((response) => {
+        alert("Product added");
+        setPrice("");
+        setCategory("");
+        setImage("");
+        setLocation("");
+        setProductName("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <AgentProfileLayout>
@@ -111,6 +153,8 @@ const AddProduct = () => {
                   placeholder="Full address"
                   id="location"
                   className="add-product-input"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
               <div className="grid mt-8">

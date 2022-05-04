@@ -21,8 +21,32 @@ const AgentEditProfile = () => {
   }
   const handleEdit = (e) => {
     e.preventDefault();
+    console.log(userToken);
+    axios
+      .put(
+        `https://freehouses.herokuapp.com/api/v1/profile/${userEmail}`,
+
+        {
+          background_image: backgroundImage,
+          email: userEmail,
+          full_name: name,
+          profile_image: profileImage,
+        },
+        {
+          headers: {
+            Authorization: "Token" + " " + userToken,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
   useEffect(() => {
+    if (userEmail === null) {
+      Navigate("/login");
+    }
     axios
       .get(`https://freehouses.herokuapp.com/api/v1/profile/${userEmail}`, {
         headers: {
@@ -36,7 +60,7 @@ const AgentEditProfile = () => {
         setBackgroundImage(response.data.background_image);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [userEmail]);
 
   return (
     <AgentProfileLayout>
@@ -117,7 +141,10 @@ const AgentEditProfile = () => {
             </div>
           </div>
           <div className="text-center mt-10">
-            <button className="bg-pur md:w-1/2 font-medium text-white py-2 px-10 rounded-lg">
+            <button
+              className="bg-pur md:w-1/2 font-medium text-white py-2 px-10 rounded-lg"
+              type="submit"
+            >
               Save Changes
             </button>
           </div>
