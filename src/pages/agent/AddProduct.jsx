@@ -20,7 +20,7 @@ const AddProduct = () => {
   const userEntry = useSelector((state) => state.entry);
 
   const SelectImage = (img) => {
-    setImage([...img, ...image]);
+    setImage(img);
     console.log(image);
   };
 
@@ -60,6 +60,7 @@ const AddProduct = () => {
           apartment_title: productName,
           category: category,
           price: price,
+          image: image,
           location: location,
           is_available: true,
           agent: username,
