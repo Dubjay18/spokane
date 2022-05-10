@@ -19,7 +19,7 @@ const FileUpload = ({ SelectImage }) => {
       const imageArray = uploadedArray.map((img) => URL.createObjectURL(img));
       setImages((prevImage) => [...prevImage, ...imageArray]);
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
-      SelectImage(imagey);
+      SelectImage(images);
       console.log(images);
       console.log(imageArray);
     }
