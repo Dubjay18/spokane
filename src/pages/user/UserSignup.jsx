@@ -12,7 +12,7 @@ const UserSignup = () => {
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState({ value: null, label: "Country" });
   const [entry, setEntry] = useState("Tenant");
   const [error, setError] = React.useState(null);
   const options = useMemo(() => countryList().getData(), []);
@@ -28,7 +28,7 @@ const UserSignup = () => {
       email: email,
       password: password,
       password2: password2,
-      country: country,
+      country: country.value,
       phone_number: phoneNumber,
       entry: entry,
     };
@@ -85,10 +85,10 @@ const UserSignup = () => {
               <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
                 <label className="text-gray-400">
                   <Select
-                    placeholder={"Country"}
+                    placeholder={country.label}
                     options={options}
-                    value={country}
-                    onChange={(e) => changeHandler(e.target.value)}
+                    value={country.label}
+                    onChange={(e) => changeHandler(e)}
                   />
                 </label>
               </div>
@@ -101,7 +101,7 @@ const UserSignup = () => {
               <input
                 className="input-box  italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
-                placeholder="Entry"
+                placeholder="Entry" readOnly
                 value={"Tenant"}
               />
               <input

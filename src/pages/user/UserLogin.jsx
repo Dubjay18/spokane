@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
+import isEmail from 'validator/lib/isEmail'
 
 // Import input error component
 import InputError from '../../components/InputError'
@@ -53,19 +54,17 @@ const UserLogin = (props) => {
 
   function login(e) {
     e.preventDefault();
-    if (email === "") {
+    if (!isEmail(email)) {
       setError({...error, email: "Input valid email"})
     } else if (password === "") {
       setError({...error, pwd: "Input valid password"})
     } else {
-      setError(null);
       axios
         .post("https://freehouses.herokuapp.com/api/v1/login/", {
           email: email,
           password: password,
         })
         .then((res) => {
-          console.log(res.status);
           setUserToken(res.data.Token);
           window.localStorage.setItem("spokanetoken", res.data.Token);
 
@@ -88,16 +87,17 @@ const UserLogin = (props) => {
                   userentry: response.data.entry,
                 })
               );
+              Navigate("/user-profile");
             })
             .catch((err) => {
               console.error(err);
               alert("Error, Try Again");
             });
         })
-        .catch((res) => {
-          setError({...error, res: res?.response?.data.message});
+        .catch((err) => {
+          setError({...error, res: `User ${err.response.data.detail}`})
+          Navigate("/login");
         });
-      Navigate("/user-profile");
     }
   }
   const verify = (e) => {
@@ -254,9 +254,7 @@ const UserLogin = (props) => {
               </p>
               <form className="">
                 {error.res && (
-                  <div className="text-red-600 animate-pulse mt-16">
-                    <p>{error.res}</p>
-                  </div>
+                  <InputError msg={error.res} />
                 )}
                 <input
                   className="input-box italic outline-gray-400 bg-ash-100"
