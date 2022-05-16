@@ -1,8 +1,14 @@
 import React, { useState, useMemo } from "react";
 import { FcGoogle } from "react-icons/fc";
+
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import countryList from "react-select-country-list";
+
+import isEmail from 'validator/lib/isEmail'
+
+// Import input error component
+import InputError from '../../components/InputError'
 
 import MainLayout from "../../layouts/MainLayout";
 
@@ -12,9 +18,9 @@ const UserSignup = () => {
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState({ value: null, label: "Country" });
   const [entry, setEntry] = useState("Tenant");
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState({});
   const options = useMemo(() => countryList().getData(), []);
   const changeHandler = (value) => {
     setCountry(value);
@@ -28,11 +34,10 @@ const UserSignup = () => {
       email: email,
       password: password,
       password2: password2,
-      country: country,
+      country: country.value,
       phone_number: phoneNumber,
       entry: entry,
     };
-    setError(null);
     await fetch(url, {
       method: "POST",
       mode: "cors", // no-cors, *cors, same-origin
@@ -45,12 +50,20 @@ const UserSignup = () => {
       referrerPolicy: "no-referrer",
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok){
+          let res = response.json()
+          res.then(function(err){
+            setError({...error, res: [err.password, err.Hint]});
+            return -1;
+          })
+        }
+      })
       .then((data) => {
         console.log("Success:", data);
       })
-      .catch((res) => {
-        setError(res.response.data.message);
+      .catch((err) => {
+        setError({...error, res: [err.response.data.password, err.response.data.Hint]});
       });
   }
   return (
@@ -68,7 +81,13 @@ const UserSignup = () => {
               Create Account
             </h4>
 
-            <form className="">
+            <form className="" onSubmit={Register}>
+            {error.res && (
+              <div className="shadow-md bg-white text-slate-500">
+                <InputError msg={error.res[0] } />
+                <p>{error.res[1]}</p>
+              </div>
+            )}
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
@@ -85,10 +104,10 @@ const UserSignup = () => {
               <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
                 <label className="text-gray-400">
                   <Select
-                    placeholder={"Country"}
+                    placeholder={country.label}
                     options={options}
-                    value={country}
-                    onChange={(e) => changeHandler(e.target.value)}
+                    value={country.label}
+                    onChange={(e) => changeHandler(e)}
                   />
                 </label>
               </div>
@@ -101,7 +120,7 @@ const UserSignup = () => {
               <input
                 className="input-box  italic mb-4 bg-ash-100 outline-gray-400"
                 type="text"
-                placeholder="Entry"
+                placeholder="Entry" readOnly
                 value={"Tenant"}
               />
               <input
@@ -112,7 +131,7 @@ const UserSignup = () => {
               />
               <input
                 className="input-box italic bg-ash-100 outline-gray-400"
-                type="password2"
+                type="password"
                 placeholder="Confirm Password"
                 onChange={(e) => setPassword2(e.target.value)}
               />

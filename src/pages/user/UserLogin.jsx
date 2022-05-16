@@ -1,6 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
+import isEmail from 'validator/lib/isEmail'
+
+// Import input error component
+import InputError from '../../components/InputError'
 
 import axios from "axios";
 import MainLayout from "../../layouts/MainLayout";
@@ -23,7 +27,7 @@ const UserLogin = (props) => {
   const [verifyOtp, setVerifyOtp] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [otp, setOtp] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState({});
   const [tempToken, setTempToken] = React.useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,19 +54,17 @@ const UserLogin = (props) => {
 
   function login(e) {
     e.preventDefault();
-    if (email === "") {
-      alert("type Email");
+    if (!isEmail(email)) {
+      setError({...error, email: "Input valid email"})
     } else if (password === "") {
-      alert("Type password");
+      setError({...error, pwd: "Input valid password"})
     } else {
-      setError(null);
       axios
         .post("https://freehouses.herokuapp.com/api/v1/login/", {
           email: email,
           password: password,
         })
         .then((res) => {
-          console.log(res.status);
           setUserToken(res.data.Token);
           window.localStorage.setItem("spokanetoken", res.data.Token);
 
@@ -76,6 +78,7 @@ const UserLogin = (props) => {
               setUserEntry(response.data.entry);
               setUser(response.data.full_name);
               setUserEmail(response.data.email);
+              // >?Is this local storage necessary
               window.localStorage.setItem(
                 "spokaneuser",
                 JSON.stringify({
@@ -84,16 +87,17 @@ const UserLogin = (props) => {
                   userentry: response.data.entry,
                 })
               );
+              Navigate("/user-profile");
             })
             .catch((err) => {
               console.error(err);
               alert("Error, Try Again");
             });
         })
-        .catch((res) => {
-          setError(res?.response?.data.message);
+        .catch((err) => {
+          setError({...error, res: `User ${err.response.data.detail}`})
+          Navigate("/login");
         });
-      Navigate("/user-profile");
     }
   }
   const verify = (e) => {
@@ -249,25 +253,29 @@ const UserLogin = (props) => {
                 - OR -
               </p>
               <form className="">
-                {error && (
-                  <div className="text-red-600 animate-pulse mt-16">
-                    <p>{error}</p>
-                  </div>
+                {error.res && (
+                  <InputError msg={error.res} />
                 )}
                 <input
-                  className="input-box italic mb-4 outline-gray-400 bg-ash-100"
+                  className="input-box italic outline-gray-400 bg-ash-100"
                   type="email"
                   placeholder="Email Address"
                   value={email}
                   onChange={(e) => setEmailN(e.target.value)}
                 />
+                {error.email && (
+                  <InputError msg={error.email} />
+                )}
                 <input
-                  className="input-box italic bg-ash-100 outline-gray-400"
+                  className="input-box italic mt-4 bg-ash-100 outline-gray-400"
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                {error.pwd && (
+                  <InputError msg={error.pwd} />
+                )}
                 <button
                   className="btn text-white h-btn font-bold bg-pur md:text-lg mt-8 w-full"
                   type="submit"
