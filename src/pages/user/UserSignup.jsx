@@ -54,7 +54,7 @@ const UserSignup = () => {
         if (!response.ok){
           let res = response.json()
           res.then(function(err){
-            setError({...error, res: [err.password, err.Hint]});
+            setError(Object.assign(error, err));
             return -1;
           })
         }
@@ -94,6 +94,9 @@ const UserSignup = () => {
                 placeholder="Full Name"
                 onChange={(e) => setName(e.target.value)}
               />
+              {error.email && (
+                <InputError msg={error.email} />
+              )}
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="email"
@@ -101,6 +104,9 @@ const UserSignup = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
 
+              {error.country && (
+                <InputError msg={error.country} />
+              )}
               <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
                 <label className="text-gray-400">
                   <Select
@@ -112,10 +118,15 @@ const UserSignup = () => {
                 </label>
               </div>
 
+              {error.phone_number && (
+                <InputError msg={error.phone_number[0]} />
+              )}
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="number"
-                placeholder="Phone_number"
+                placeholder="+2331010101010"
+                value={phoneNumber}
+                onChange={(e)=>setPhoneNumber(e.target.value)}
               />
               <input
                 className="input-box  italic mb-4 bg-ash-100 outline-gray-400"
@@ -129,6 +140,9 @@ const UserSignup = () => {
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {error.password2 && (
+                <InputError msg={error.password2} />
+              )}
               <input
                 className="input-box italic bg-ash-100 outline-gray-400"
                 type="password"
