@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import {useNavigate} from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc";
 
 import { Link } from "react-router-dom";
@@ -13,6 +14,9 @@ import InputError from '../../components/InputError'
 import MainLayout from "../../layouts/MainLayout";
 
 const UserSignup = () => {
+
+  const redirect = useNavigate()
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -60,7 +64,7 @@ const UserSignup = () => {
         }
       })
       .then((data) => {
-        console.log("Success:", data);
+        redirect('/user-profile')
       })
       .catch((err) => {
         setError({...error, res: [err.response.data.password, err.response.data.Hint]});
