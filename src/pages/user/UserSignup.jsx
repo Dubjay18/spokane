@@ -3,10 +3,8 @@ import {useNavigate} from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc";
 
 import { Link } from "react-router-dom";
-import Select from "react-select";
-import countryList from "react-select-country-list";
 
-import isEmail from 'validator/lib/isEmail'
+import FormBody from "../../components/form";
 
 // Import input error component
 import InputError from '../../components/InputError'
@@ -22,26 +20,38 @@ const UserSignup = () => {
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState({ value: null, label: "Country" });
+  const [country, setCountry] = useState(null);
   const [entry, setEntry] = useState("Tenant");
-  const [error, setError] = React.useState({});
-  const options = useMemo(() => countryList().getData(), []);
+  const [error, setError] = useState({});
   const changeHandler = (value) => {
     setCountry(value);
   };
+
+  const body = {
+    setter: {
+      setName,
+      setEntry,
+      setPassword,
+      setPassword2,
+      setCountry,
+      setEmail,
+      setPhoneNumber,
+      changeHandler
+    },
+    getter: {
+      name,
+      entry,
+      password,
+      password2,
+      country,
+      email,
+      phoneNumber,
+    }
+  }
   async function Register(e) {
     // Default options are marked with *
     e.preventDefault();
     const url = "https://freehouses.herokuapp.com/api/v1/user/registration/";
-    const data = {
-      name: name,
-      email: email,
-      password: password,
-      password2: password2,
-      country: country.value,
-      phone_number: phoneNumber,
-      entry: entry,
-    };
     await fetch(url, {
       method: "POST",
       mode: "cors", // no-cors, *cors, same-origin
@@ -52,12 +62,12 @@ const UserSignup = () => {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify(data),
+      body: JSON.stringify(body.getter),
     })
       .then((response) => {
         if (!response.ok){
           let res = response.json()
-          res.then(function(err){
+          res.then(function(err){ 
             setError(Object.assign(error, err));
           })
           return -1;
@@ -84,70 +94,16 @@ const UserSignup = () => {
             </h4>
 
             <form className="" onSubmit={Register}>
-            {error.res && (
-              <div className="shadow-md bg-white text-slate-500">
-                <InputError msg={error.res[0] } />
-                <p>{error.res[1]}</p>
-              </div>
-            )}
-              <input
-                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                type="text"
-                placeholder="Full Name"
-                onChange={(e) => setName(e.target.value)}
-              />
-              {error.email && (
-                <InputError msg={error.email} />
-              )}
-              <input
-                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                type="email"
-                placeholder="Email Address"
-                onChange={(e) => setEmail(e.target.value)}
-              />
 
-              {error.country && (
-                <InputError msg={error.country} />
+              {/* Import the form body */}
+              <FormBody getter={body.getter} setter={body.setter} error={error} />
+              {error.res && (
+                <div className="shadow-md bg-white text-slate-500">
+                  <InputError msg={error.res[0] } />
+                  <p>{error.res[1]}</p>
+                </div>
               )}
-              <Select
-                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                placeholder={"Country"}
-                options={options}
-                value={country}
-                onChange={changeHandler}
-              />
-
-              {error.phone_number && (
-                <InputError msg={error.phone_number[0]} />
-              )}
-              <input
-                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                type="number"
-                placeholder="+2331010101010"
-                value={phoneNumber}
-                onChange={(e)=>setPhoneNumber(e.target.value)}
-              />
-              <input
-                className="input-box  italic mb-4 bg-ash-100 outline-gray-400"
-                type="text"
-                placeholder="Entry" readOnly
-                value={"Tenant"}
-              />
-              <input
-                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {error.password2 && (
-                <InputError msg={error.password2} />
-              )}
-              <input
-                className="input-box italic bg-ash-100 outline-gray-400"
-                type="password"
-                placeholder="Confirm Password"
-                onChange={(e) => setPassword2(e.target.value)}
-              />
+              
               <button className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full">
                 Create Account
               </button>

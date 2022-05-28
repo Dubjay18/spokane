@@ -1,14 +1,16 @@
-import React, { useState, useMemo } from "react";
-import Select from "react-select";
-import countryList from "react-select-country-list";
+import React, { useState } from "react";
+
+
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+
+import FormBody from "../../components/form";
 
 import MainLayout from "../../layouts/MainLayout";
 import axios from "axios";
 
 const AgentSignup = () => {
-  const [value, setValue] = useState("");
+  const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");
   const [entry, setEntry] = useState("Agent");
   const [password, setPassword] = useState("");
@@ -17,26 +19,42 @@ const AgentSignup = () => {
   const [homeAddress, setHomeAddress] = useState("");
   const [name, setName] = useState("");
   const [verification, setVerification] = useState(false);
-  const options = useMemo(() => countryList().getData(), []);
+  
 
   const changeHandler = (value) => {
-    console.log(value)
-    setValue(value);
+    setCountry(value);
   };
+
+  const body = {
+    setter: {
+      setName,
+      setEntry,
+      setPassword,
+      setPassword2,
+      setCountry,
+      setEmail,
+      setPhoneNumber,
+      changeHandler
+    },
+    getter: {
+      name,
+      entry,
+      password,
+      password2,
+      country,
+      email,
+      phoneNumber,
+      homeAddress,
+    }
+  }
+
   const register = (e) => {
     e.preventDefault();
 
+    console.log(body.getter)
+
     axios
-      .post("https://freehouses.herokuapp.com/api/v1/agent/registration/", {
-        name: name,
-        entry: entry,
-        password: password,
-        password2: password2,
-        country: value.value,
-        email: email,
-        phone_number: phoneNumber,
-        home_address: homeAddress,
-      })
+      .post("https://freehouses.herokuapp.com/api/v1/agent/registration/", body.getter)
       .then((res) => {
         console.log(res);
         setVerification(true);
@@ -72,65 +90,16 @@ const AgentSignup = () => {
                   Create Account
                 </h4>
                 <form className="">
-                  <input
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    type="text"
-                    placeholder="Full Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <input
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    type="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  {/* Import form body */}
+                  <FormBody getter={body.getter} setter={body.setter} />
                   {/* Home address */}
                   <input
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    type="text"
-                    placeholder="Home Address"
-                    value={homeAddress}
-                    onChange={(e) => setHomeAddress(e.target.value)}
+                  className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                  type="text"
+                  placeholder="Home Address"
+                  value={homeAddress}
+                  onChange={(e) => setHomeAddress(e.target.value)}
                   />
-                  {/* Phone number */}
-                  <input
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    type="number"
-                    placeholder="+2349012345678"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                  <Select
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    placeholder={"Country"}
-                    options={options}
-                    value={value}
-                    onChange={changeHandler}
-                  />
-                  <input
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    type="text"
-                    placeholder="Entry"
-                    value={entry} readOnly
-                    onChange={(e) => setEntry(e.target.value)}
-                  />
-                  <input
-                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <input
-                    className="input-box italic bg-ash-100 outline-gray-400"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={password2}
-                    onChange={(e) => setPassword2(e.target.value)}
-                  />
-
                   <button
                     className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full"
                     onClick={register}
