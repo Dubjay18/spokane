@@ -95,7 +95,7 @@ const UserLogin = (props) => {
             });
         })
         .catch((err) => {
-          setError({...error, res: `User ${err.response.data.detail}`})
+          setError({...error, res: `${err.response.data.message}`})
           Navigate("/login");
         });
     }
