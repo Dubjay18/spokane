@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import isEmail from 'validator/lib/isEmail'
@@ -72,7 +72,7 @@ const UserLogin = (props) => {
             .get(`https://freehouses.herokuapp.com/api/v1/profile/${email}`, {
               headers: {
                 Authorization: "Token" + " " + res.data.Token,
-              },
+              }
             })
             .then((response) => {
               setUserEntry(response.data.entry);

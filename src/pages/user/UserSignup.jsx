@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import {useNavigate} from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc";
 
 import { Link } from "react-router-dom";
@@ -13,6 +14,9 @@ import InputError from '../../components/InputError'
 import MainLayout from "../../layouts/MainLayout";
 
 const UserSignup = () => {
+
+  const redirect = useNavigate()
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -54,13 +58,11 @@ const UserSignup = () => {
         if (!response.ok){
           let res = response.json()
           res.then(function(err){
-            setError({...error, res: [err.password, err.Hint]});
-            return -1;
+            setError(Object.assign(error, err));
           })
+          return -1;
         }
-      })
-      .then((data) => {
-        console.log("Success:", data);
+        redirect('/user-profile')
       })
       .catch((err) => {
         setError({...error, res: [err.response.data.password, err.response.data.Hint]});
@@ -94,6 +96,9 @@ const UserSignup = () => {
                 placeholder="Full Name"
                 onChange={(e) => setName(e.target.value)}
               />
+              {error.email && (
+                <InputError msg={error.email} />
+              )}
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="email"
@@ -101,21 +106,26 @@ const UserSignup = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
-                <label className="text-gray-400">
-                  <Select
-                    placeholder={country.label}
-                    options={options}
-                    value={country.label}
-                    onChange={(e) => changeHandler(e)}
-                  />
-                </label>
-              </div>
+              {error.country && (
+                <InputError msg={error.country} />
+              )}
+              <Select
+                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                placeholder={"Country"}
+                options={options}
+                value={country}
+                onChange={changeHandler}
+              />
 
+              {error.phone_number && (
+                <InputError msg={error.phone_number[0]} />
+              )}
               <input
                 className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                 type="number"
-                placeholder="Phone_number"
+                placeholder="+2331010101010"
+                value={phoneNumber}
+                onChange={(e)=>setPhoneNumber(e.target.value)}
               />
               <input
                 className="input-box  italic mb-4 bg-ash-100 outline-gray-400"
@@ -129,6 +139,9 @@ const UserSignup = () => {
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {error.password2 && (
+                <InputError msg={error.password2} />
+              )}
               <input
                 className="input-box italic bg-ash-100 outline-gray-400"
                 type="password"
