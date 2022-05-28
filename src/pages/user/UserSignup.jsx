@@ -59,11 +59,9 @@ const UserSignup = () => {
           let res = response.json()
           res.then(function(err){
             setError(Object.assign(error, err));
-            return -1;
           })
+          return -1;
         }
-      })
-      .then((data) => {
         redirect('/user-profile')
       })
       .catch((err) => {
@@ -111,16 +109,13 @@ const UserSignup = () => {
               {error.country && (
                 <InputError msg={error.country} />
               )}
-              <div className="input-box italic mb-4 bg-ash-100 outline-gray-400">
-                <label className="text-gray-400">
-                  <Select
-                    placeholder={country.label}
-                    options={options}
-                    value={country.label}
-                    onChange={(e) => changeHandler(e)}
-                  />
-                </label>
-              </div>
+              <Select
+                className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                placeholder={"Country"}
+                options={options}
+                value={country}
+                onChange={changeHandler}
+              />
 
               {error.phone_number && (
                 <InputError msg={error.phone_number[0]} />

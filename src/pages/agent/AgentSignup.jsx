@@ -18,9 +18,9 @@ const AgentSignup = () => {
   const [name, setName] = useState("");
   const [verification, setVerification] = useState(false);
   const options = useMemo(() => countryList().getData(), []);
-  console.log(options);
 
   const changeHandler = (value) => {
+    console.log(value)
     setValue(value);
   };
   const register = (e) => {
@@ -34,7 +34,7 @@ const AgentSignup = () => {
         password2: password2,
         country: value.value,
         email: email,
-        phone_number: `+234-${phoneNumber}`,
+        phone_number: phoneNumber,
         home_address: homeAddress,
       })
       .then((res) => {
@@ -86,6 +86,7 @@ const AgentSignup = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {/* Home address */}
                   <input
                     className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                     type="text"
@@ -93,18 +94,14 @@ const AgentSignup = () => {
                     value={homeAddress}
                     onChange={(e) => setHomeAddress(e.target.value)}
                   />
-                  <div className=" flex">
-                    <span className=" bg-pur text-white pt-2 px-4 rounded-tl-xl pb-3 rounded-bl-xl h-3/5 left-0 bottom-0 top-0 bg-">
-                      +234
-                    </span>
-                    <input
-                      className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                      type="number"
-                      placeholder="Phonenumber"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                  </div>
+                  {/* Phone number */}
+                  <input
+                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                    type="number"
+                    placeholder="+2349012345678"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
                   <Select
                     className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                     placeholder={"Country"}
@@ -116,7 +113,7 @@ const AgentSignup = () => {
                     className="input-box italic mb-4 bg-ash-100 outline-gray-400"
                     type="text"
                     placeholder="Entry"
-                    value={entry}
+                    value={entry} readOnly
                     onChange={(e) => setEntry(e.target.value)}
                   />
                   <input
