@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import {useNavigate} from 'react-router-dom'
+import request from '../../async/request'
 import { FcGoogle } from "react-icons/fc";
 
 import { Link } from "react-router-dom";
@@ -51,31 +52,15 @@ const UserSignup = () => {
   async function Register(e) {
     // Default options are marked with *
     e.preventDefault();
-    const url = "https://freehouses.herokuapp.com/api/v1/user/registration/";
-    await fetch(url, {
-      method: "POST",
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(body.getter),
-    })
-      .then((response) => {
-        if (!response.ok){
-          let res = response.json()
-          res.then(function(err){ 
-            setError(Object.assign(error, err));
-          })
-          return -1;
-        }
+    request
+      .post("/agent/registration/", body.getter)
+      .then((res) => {
+        console.log(res);
         redirect('/user-profile')
       })
       .catch((err) => {
-        setError({...error, res: [err.response.data.password, err.response.data.Hint]});
+         let er = Object.assign({}, err.response.data)
+         setError(er)
       });
   }
   return (
@@ -94,15 +79,15 @@ const UserSignup = () => {
             </h4>
 
             <form className="" onSubmit={Register}>
-
-              {/* Import the form body */}
-              <FormBody getter={body.getter} setter={body.setter} error={error} />
               {error.res && (
                 <div className="shadow-md bg-white text-slate-500">
                   <InputError msg={error.res[0] } />
                   <p>{error.res[1]}</p>
                 </div>
               )}
+
+              {/* Import the form body */}
+              <FormBody getter={body.getter} setter={body.setter} error={error} />
               
               <button className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full">
                 Create Account
