@@ -18,9 +18,10 @@ const AgentSignup = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [error, setError] = useState({});
   const [verification, setVerification] = useState(false);
   
-
   const changeHandler = (value) => {
     setCountry(value);
   };
@@ -34,7 +35,7 @@ const AgentSignup = () => {
       setCountry,
       setEmail,
       setPhoneNumber,
-      changeHandler
+      changeHandler,
     },
     getter: {
       name,
@@ -43,8 +44,9 @@ const AgentSignup = () => {
       password2,
       country,
       email,
-      phoneNumber,
+      phone_number: phoneNumber,
       homeAddress,
+      agent_location: city,
     }
   }
 
@@ -59,7 +61,10 @@ const AgentSignup = () => {
         console.log(res);
         setVerification(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        let er = Object.assign({}, err.response.data)
+        setError(er)
+     });
   };
   return (
     <MainLayout>
@@ -77,7 +82,7 @@ const AgentSignup = () => {
             {verification ? (
               <div>
                 <h1 className="sm:text-2xl text-xl py-35">
-                  A link as been sent to your email click it and login{" "}
+                  A link has been sent to your email click it and login{" "}
                   <Link className="text-pur font-medium " to="/login">
                     here
                   </Link>
@@ -91,15 +96,25 @@ const AgentSignup = () => {
                 </h4>
                 <form className="">
                   {/* Import form body */}
-                  <FormBody getter={body.getter} setter={body.setter} />
-                  {/* Home address */}
-                  <input
-                  className="input-box italic mb-4 bg-ash-100 outline-gray-400"
-                  type="text"
-                  placeholder="Home Address"
-                  value={homeAddress}
-                  onChange={(e) => setHomeAddress(e.target.value)}
-                  />
+                  <FormBody getter={body.getter} setter={body.setter} error={error}>
+                    {/* Home address */}
+                    <input
+                    className="input-box italic mb-4 bg-ash-100 outline-gray-400"
+                    type="text"
+                    placeholder="Home Address"
+                    value={homeAddress}
+                    onChange={(e) => setHomeAddress(e.target.value)}
+                    />
+                    {/* Location */}
+                    <input
+                    className="input-box italic mt-2 mb-4 bg-ash-100 outline-gray-400"
+                    type="text"
+                    placeholder="City*"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    />
+                  </FormBody>
+                  
                   <button
                     className="btn text-white font-bold md:text-lg h-btn bg-pur mt-8 w-full"
                     onClick={register}

@@ -6,7 +6,7 @@ import InputError from '../components/InputError'
 import isEmail from 'validator/lib/isEmail'
 
 
-function FormBody({getter, setter, error}) {
+function FormBody({children, getter, setter, error}) {
   const options = useMemo(() => countryList().getData(), []);
   return (
     <>
@@ -30,6 +30,8 @@ function FormBody({getter, setter, error}) {
         value={getter.email}
         onChange={(e) => setter.setEmail(e.target.value)}
         />
+
+        {children}
         
         {/* Phone number */}
         {error.phone_number && (
