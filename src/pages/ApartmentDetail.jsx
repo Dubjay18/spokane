@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	FaChevronRight,
 	FaChevronLeft,
@@ -8,7 +8,7 @@ import {
 	FaRegHeart,
 } from "react-icons/fa";
 import { BiChat } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 import Info from "../components/Info";
@@ -17,8 +17,12 @@ import tags from "../database/apartmentTags";
 import { data } from "../database/data";
 import ApartmentCarousel from "../components/ApartmentCarousel";
 import { useCarousel } from "../context/CarouselApi";
+import request from "../async/request";
 
 const ApartmentDetail = () => {
+
+	const par = useParams()
+
 	const { listRef, scrollLeft, scrollRight, showbtn, showScroll } =
 		useCarousel();
 	const [imgSlide, setImgSlide] = useState(0);
@@ -60,6 +64,17 @@ const ApartmentDetail = () => {
 			text: "The apartment consists of a large bright bedroom with a comfy king-sized bed, a modern fully-equipped kitchen and a sunlit living room with Apple TV and free Netflix account. It is the perfect place to stay for couples looking for a romantic location in the historic centre, within walking distance of some of the most beautiful sceneries you can find in the city and all famous landmarks. The sofa in the living room can also serve as an additional bed for a 3rd guest. Located in a side street between the ___ river bank and the leafy ___ hill park, the apartment is very quiet at night. Please note, my apartment is on the 3rd floor with no elevator. I am more than happy to help you with your luggage! ",
 		},
 	];
+
+	async function fresh(){
+		request.get('/apartment/'+par.id)
+		.then(res=>console.log(res))
+		.catch(err=>console.log(err))
+	}
+
+	useEffect(()=>{
+		fresh()
+	}, [])
+
 	return (
 		<MainLayout>
 			<main className="px-3 md:px-8 container py-5 md:py-10">
