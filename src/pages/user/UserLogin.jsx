@@ -18,6 +18,7 @@ import {
 } from "../../actionTypes/newUser";
 import { user } from "../../reducer";
 import { configureStore } from "@reduxjs/toolkit";
+import request from "../../async/request";
 let store = configureStore({
   reducer: user,
 });
@@ -27,6 +28,7 @@ const UserLogin = (props) => {
   const [verifyOtp, setVerifyOtp] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [otp, setOtp] = React.useState(false);
+  const [v, setV] = React.useState(false);
   const [error, setError] = React.useState({});
   const [tempToken, setTempToken] = React.useState("");
   const Navigate = useNavigate();
@@ -52,6 +54,12 @@ const UserLogin = (props) => {
     console.log(userEntry);
   };
 
+  const handleReset = () => {
+    request.post('/get-OTP/', {email})
+    .then(res=>alert('sent'))
+    .catch(err => setError({...error, res: `${err.response.data.message}`}))
+  }
+
   function login(e) {
     e.preventDefault();
     if (!isEmail(email)) {
@@ -59,8 +67,8 @@ const UserLogin = (props) => {
     } else if (password === "") {
       setError({...error, pwd: "Input valid password"})
     } else {
-      axios
-        .post("https://freehouses.herokuapp.com/api/v1/login/", {
+      request
+        .post("/login/", {
           email: email,
           password: password,
         })
@@ -96,7 +104,7 @@ const UserLogin = (props) => {
         })
         .catch((err) => {
           setError({...error, res: `${err.response.data.message}`})
-          Navigate("/login");
+          setV(true)
         });
     }
   }
@@ -214,7 +222,7 @@ const UserLogin = (props) => {
           {otp ? (
             verifyOtp ? (
               <div className="flex items-center justify-center">
-                <h1>A link as been sent to your email</h1>
+                <h1>A link has been sent to your email</h1>
               </div>
             ) : (
               <div className="flex items-center justify-center">
@@ -298,6 +306,13 @@ const UserLogin = (props) => {
               >
                 Forgot Password?
               </p>
+              {v && 
+              (<p 
+              className="text-pur font-medium md:text-lg mt-3 cursor-pointer"
+              onClick={handleReset}
+              >
+                Resend verification email
+              </p>)}
             </div>
           )}
         </div>
