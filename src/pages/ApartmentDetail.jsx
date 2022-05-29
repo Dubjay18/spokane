@@ -28,16 +28,7 @@ const ApartmentDetail = () => {
 		require("../images/kitchen.jpeg")
 	];
 
-	const checkIndex = (index) => {
-		if (index > slideShow.length - 1) {
-			return 0;
-		}
-		if (index < 0) {
-			return slideShow.length - 1;
-		} else {
-			return index;
-		}
-	};
+	const checkIndex = (index) => Math.abs(index % 3);
 	const handleNext = () => {
 		let result = imgSlide + 1;
 		setImgSlide(checkIndex(result));
