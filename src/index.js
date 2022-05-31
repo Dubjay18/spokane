@@ -6,19 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import CarouselApi from "./context/CarouselApi";
 import reportWebVitals from "./reportWebVitals";
 
-import { user } from "./reducer";
-import { configureStore } from "@reduxjs/toolkit";
-import {
-  setUsername,
-  setEmail,
-  setToken,
-  setEntry,
-} from "./actionTypes/newUser";
-import { Provider, connect } from "react-redux";
-let store = configureStore({
-  reducer: user,
-});
+import store from "./redux/store";
 
+import { Provider } from "react-redux";
 ReactDOM.render(
   <React.StrictMode>
     <CarouselApi>
