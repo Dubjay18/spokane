@@ -19,41 +19,12 @@ let store = configureStore({
   reducer: user,
 });
 
-let unSuscribe = store.subscribe(() => console.log(store.getState()));
-
-const mapStateToProps = (state) => {
-  return {
-    user: state,
-  };
-};
-
-const mapActionToProps = (dispatch) => {
-  return {
-    setUsername: function (username) {
-      dispatch(setUsername(username));
-    },
-    setEmail: function (email) {
-      dispatch(setEmail(email));
-    },
-    setEntry: function (entry) {
-      dispatch(setEntry(entry));
-    },
-    setToken: function (token) {
-      dispatch(setToken(token));
-    },
-  };
-};
-
-unSuscribe();
-
-const Container = connect(mapStateToProps, mapActionToProps)(App);
 ReactDOM.render(
   <React.StrictMode>
     <CarouselApi>
       <BrowserRouter>
         <Provider store={store}>
-          {" "}
-          <Container />
+          <App />
         </Provider>
       </BrowserRouter>
     </CarouselApi>
