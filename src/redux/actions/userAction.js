@@ -1,4 +1,4 @@
-import { usertypes } from "../types/actiontypes";
+import usertypes from "../types/usertypes";
 
 export const setUsername = (username) => {
   return { type: usertypes.SET_USERNAME, username };
