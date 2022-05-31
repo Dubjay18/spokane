@@ -34,7 +34,6 @@ const ApartmentDetail = () => {
 	const handleNext = () => {
 		let result = imgSlide + 1;
 		setImgSlide(checkIndex(result));
-		console.log(imgSlide)
 	};
 	const handlePrev = () => {
 		let result = imgSlide - 1;
@@ -46,19 +45,19 @@ const ApartmentDetail = () => {
 	const info = [
 		{
 			title: "Descriptions",
-			text: "The apartment consists of a large bright bedroom with a comfy king-sized bed, a modern fully-equipped kitchen and a sunlit living room with Apple TV and free Netflix account. It is the perfect place to stay for couples looking for a romantic location in the historic centre, within walking distance of some of the most beautiful sceneries you can find in the city and all famous landmarks. The sofa in the living room can also serve as an additional bed for a 3rd guest. Located in a side street between the ___ river bank and the leafy ___ hill park, the apartment is very quiet at night. Please note, my apartment is on the 3rd floor with no elevator. I am more than happy to help you with your luggage! ",
+			text: apartment.descriptions,
 		},
 		{
 			title: "Features",
-			text: "The apartment consists of a large bright bedroom with a comfy king-sized bed, a modern fully-equipped kitchen and a sunlit living room with Apple TV and free Netflix account. It is the perfect place to stay for couples looking for a romantic location in the historic centre, within walking distance of some of the most beautiful sceneries you can find in the city and all famous landmarks. The sofa in the living room can also serve as an additional bed for a 3rd guest. Located in a side street between the ___ river bank and the leafy ___ hill park, the apartment is very quiet at night. Please note, my apartment is on the 3rd floor with no elevator. I am more than happy to help you with your luggage! ",
+			text: apartment.feautures,
 		},
 		{
 			title: "Location Info",
-			text: "The apartment consists of a large bright bedroom with a comfy king-sized bed, a modern fully-equipped kitchen and a sunlit living room with Apple TV and free Netflix account. It is the perfect place to stay for couples looking for a romantic location in the historic centre, within walking distance of some of the most beautiful sceneries you can find in the city and all famous landmarks. The sofa in the living room can also serve as an additional bed for a 3rd guest. Located in a side street between the ___ river bank and the leafy ___ hill park, the apartment is very quiet at night. Please note, my apartment is on the 3rd floor with no elevator. I am more than happy to help you with your luggage! ",
+			text: apartment.location_info
 		},
 		{
 			title: "Reviews",
-			text: "The apartment consists of a large bright bedroom with a comfy king-sized bed, a modern fully-equipped kitchen and a sunlit living room with Apple TV and free Netflix account. It is the perfect place to stay for couples looking for a romantic location in the historic centre, within walking distance of some of the most beautiful sceneries you can find in the city and all famous landmarks. The sofa in the living room can also serve as an additional bed for a 3rd guest. Located in a side street between the ___ river bank and the leafy ___ hill park, the apartment is very quiet at night. Please note, my apartment is on the 3rd floor with no elevator. I am more than happy to help you with your luggage! ",
+			text: apartment.reviews
 		},
 	];
 
@@ -136,7 +135,7 @@ const ApartmentDetail = () => {
 								<p className="text-pur font-medium">
 									Managed by:{" "}
 									<span className="font-bold">
-										Akinomoakin
+										{apartment.agent}
 									</span>
 								</p>
 								<div className="flex items-center gap-1">
@@ -169,7 +168,7 @@ const ApartmentDetail = () => {
 							<p className="text-secondary">
 								Location:{" "}
 								<span className="font-medium text-black">
-									Agege One, Lagos
+									{apartment.location}
 								</span>
 							</p>
 						</div>
@@ -197,7 +196,7 @@ const ApartmentDetail = () => {
 									alt="profile"
 								/>
 								<div className="text-sm text-white">
-									<h5 className="font-bold">Akinomoakin</h5>
+									<h5 className="font-bold">{apartment.agent}</h5>
 									<p>Lagos, Nigeria</p>
 								</div>
 							</div>
