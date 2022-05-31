@@ -15,13 +15,8 @@ import {
   setEmail,
   setToken,
   setEntry,
-} from "../../actionTypes/newUser";
-import { user } from "../../reducer";
-import { configureStore } from "@reduxjs/toolkit";
+} from "../../redux/actions/userAction";
 import request from "../../async/request";
-let store = configureStore({
-  reducer: user,
-});
 const UserLogin = (props) => {
   const [email, setEmailN] = React.useState("");
   const [verifyEmail, setVerifyEmail] = React.useState("");

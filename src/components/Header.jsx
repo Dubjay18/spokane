@@ -9,7 +9,7 @@ import {
   setEmail,
   setToken,
   setEntry,
-} from "../actionTypes/newUser";
+} from "../redux/actions/userAction";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 

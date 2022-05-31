@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import ApartmentDetail from "./pages/ApartmentDetail";
 import Home from "./pages/Home";
@@ -28,7 +29,7 @@ import AgentTransactions from "./pages/agent/AgentTransactions";
 import UserOtpVerification from "./pages/user/UserOtpVerification";
 import UserPasswordReset from "./pages/user/UserPasswordReset";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import {setEmail, setEntry, setToken, setUsername} from './redux/actions/userAction'
 
 function App(props) {
   const dispatch = useDispatch();
@@ -37,19 +38,19 @@ function App(props) {
   const userToken = useSelector((state) => state.token);
   const userEntry = useSelector((state) => state.entry);
   const setUser = (name) => {
-    dispatch();
+    dispatch(setUsername(name));
     console.log(username);
   };
   const setUserToken = (e) => {
-    dispatch();
+    dispatch(setToken(e));
     console.log(userEmail);
   };
   const setUserEmail = (e) => {
-    dispatch();
+    dispatch(setEmail(e));
     console.log(userToken);
   };
   const setUserEntry = (e) => {
-    dispatch();
+    dispatch(setEntry(e));
     console.log(userEntry);
   };
   const storedToken = localStorage.getItem("spokanetoken");
