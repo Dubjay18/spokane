@@ -24,12 +24,7 @@ import AddProduct from "./pages/agent/AddProduct";
 import AgentNotification from "./pages/agent/AgentNotification";
 import AgentEditProfile from "./pages/agent/AgentEditProfile";
 import AgentTransactions from "./pages/agent/AgentTransactions";
-import {
-  setUsername,
-  setEmail,
-  setToken,
-  setEntry,
-} from "./actionTypes/newUser";
+
 import UserOtpVerification from "./pages/user/UserOtpVerification";
 import UserPasswordReset from "./pages/user/UserPasswordReset";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,19 +37,19 @@ function App(props) {
   const userToken = useSelector((state) => state.token);
   const userEntry = useSelector((state) => state.entry);
   const setUser = (name) => {
-    dispatch(setUsername(name));
+    dispatch();
     console.log(username);
   };
   const setUserToken = (e) => {
-    dispatch(setToken(e));
+    dispatch();
     console.log(userEmail);
   };
   const setUserEmail = (e) => {
-    dispatch(setEmail(e));
+    dispatch();
     console.log(userToken);
   };
   const setUserEntry = (e) => {
-    dispatch(setEntry(e));
+    dispatch();
     console.log(userEntry);
   };
   const storedToken = localStorage.getItem("spokanetoken");
