@@ -25,7 +25,6 @@ const UserLogin = (props) => {
   const [otp, setOtp] = React.useState(false);
   const [v, setV] = React.useState(false);
   const [error, setError] = React.useState({});
-  const [tempToken, setTempToken] = React.useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.username);

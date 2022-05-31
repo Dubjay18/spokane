@@ -66,7 +66,7 @@ const ApartmentDetail = () => {
 	];
 
 	async function fresh(){
-		request.get('/apartment/'+par.id)
+		request.get('/apartment/all')
 		.then(res=>console.log(res))
 		.catch(err=>console.log(err))
 	}
