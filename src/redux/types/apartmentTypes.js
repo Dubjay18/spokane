@@ -1,3 +1,6 @@
 export const aptTypes = {
-  SET,
+  SET_APARTMENTS: "SET_APARTMENTS",
+  SET_APARTMENT: "SET_APARTMENT",
 };
+
+export default aptTypes;
