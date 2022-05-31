@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { setApartments } from "../redux/actions/apartmentActions";
 
@@ -19,9 +19,10 @@ const Home = () => {
 	useEffect(()=>{
 		request.get('/apartment/all')
 		.then(response=>response.data.result)
-		.then(res => dispatch(setApartments('hey')))
+		.then(res => dispatch(setApartments(res)))
 		.catch(err => console.log(err))
 	}, [])
+	console.log(useSelector(state=>state))
 	const homeCard = [
 		{
 			text: "Search Apartment",
