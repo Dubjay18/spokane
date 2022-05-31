@@ -108,5 +108,3 @@ export const data = [
     agent: "Portablex",
   },
 ];
-
-export const apartments = {};

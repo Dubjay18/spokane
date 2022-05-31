@@ -1,11 +1,15 @@
 import aptTypes from "../types/apartmentTypes";
 
-export const setApartments = (state = {}, { type, payload }) => {
-  switch (type) {
-    case aptTypes.SET_APARTMENTS:
-      return { ...state, payload };
+export const setApartments = (data) => {
+  return {
+    type: aptTypes.SET_APARTMENTS,
+    data,
+  };
+};
 
-    default:
-      return state;
-  }
+export const setApartment = (data) => {
+  return {
+    type: aptTypes.SET_APARTMENT,
+    data,
+  };
 };

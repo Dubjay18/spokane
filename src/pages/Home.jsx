@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { setApartments } from "../redux/actions/apartmentActions";
 
 import { data } from "../database/data";
 import HeadlessLayout from "../layouts/HeadlessLayout";
 import CardType from "../components/CardType";
 import CardTopPick from "../components/CardTopPick";
 import SearchForm from "../components/SearchForm";
+import request from "../async/request";
 
 const Home = () => {
+
+	const dispatch = useDispatch()
+
 	const subMenu = ["All", ...new Set(data.map((menu) => menu.type))];
 	const [list, setList] = useState(data);
+	useEffect(()=>{
+		request.get('/apartment/all')
+		.then(response=>response.data.result)
+		.then(res => dispatch(setApartments('hey')))
+		.catch(err => console.log(err))
+	}, [])
 	const homeCard = [
 		{
 			text: "Search Apartment",
