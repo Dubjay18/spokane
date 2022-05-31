@@ -1,6 +1,6 @@
 import { usertypes } from "../types/actiontypes";
 
-const userReducer = (state, { type, payload }) => {
+const userReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case usertypes.SET_EMAIL:
       return { ...state, payload };
