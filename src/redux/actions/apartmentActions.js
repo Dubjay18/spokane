@@ -1,15 +1,16 @@
 import aptTypes from "../types/apartmentTypes";
 
-export const setApartments = (data) => {
+export const setApartments = (kind, data) => {
   return {
     type: aptTypes.SET_APARTMENTS,
-    data,
+    payload: data,
+    kind,
   };
 };
 
 export const setApartment = (data) => {
   return {
     type: aptTypes.SET_APARTMENT,
-    data,
+    payload: data,
   };
 };

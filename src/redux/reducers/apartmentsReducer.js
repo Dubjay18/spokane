@@ -1,9 +1,14 @@
 import aptTypes from "../types/apartmentTypes";
 
-export const apartmentsReducer = (state = [], { type, payload }) => {
+export const apartmentsReducer = (state = [], { type, payload, kind }) => {
   switch (type) {
     case aptTypes.SET_APARTMENTS:
-      return { ...state, products: payload };
+      return payload
+        ? kind !== "All"
+          ? payload.filter((e) => e.category === kind)
+          : payload
+        : state;
+
     default:
       return state;
   }

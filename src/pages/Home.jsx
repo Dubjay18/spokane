@@ -15,14 +15,15 @@ const Home = () => {
 	const dispatch = useDispatch()
 
 	const subMenu = ["All", ...new Set(data.map((menu) => menu.type))];
-	const [list, setList] = useState(data);
+	// const [list, setList] = useState(data);
+	const [type, setType] = useState('All')
+	const apartments = useSelector(state => state.apartments)
 	useEffect(()=>{
 		request.get('/apartment/all')
-		.then(response=>response.data.result)
-		.then(res => dispatch(setApartments(res)))
+		.then(response=>response.data.results)
+		.then(res => dispatch(setApartments(type, res)))
 		.catch(err => console.log(err))
-	}, [])
-	console.log(useSelector(state=>state))
+	}, [type])
 	const homeCard = [
 		{
 			text: "Search Apartment",
@@ -42,12 +43,9 @@ const Home = () => {
 	];
 
 	const handleChange = (item) => {
-		if (item === "All") {
-			setList(data);
-			return;
-		}
-		const newData = data.filter((ele) => ele.type === item);
-		setList(newData);
+		setType(item)
+		// const newData = data.filter((ele) => ele.type === item);
+		// setList(newData);
 	};
 
 	return (
@@ -97,10 +95,10 @@ const Home = () => {
 							return (
 								<button
 									className={`px-2 md:px-5 pb-2 transition duration-500 ${
-										(list !== data && item === list[0].type
+										(apartments !== data && item === type
 											? "active-type"
 											: "") ||
-										(list === data && item === "All"
+										(apartments === data && item === "All"
 											? "active-type"
 											: "")
 									}`}
@@ -113,7 +111,7 @@ const Home = () => {
 						})}
 					</div>
 					<div className="grid md:grid-cols-3 py-3 gap-y-10 gap-x-6 lg:grid-cols-4">
-						{list.map((typ, index) => {
+						{apartments.map((typ, index) => {
 							return <CardType key={index} {...typ} />;
 						})}
 					</div>
