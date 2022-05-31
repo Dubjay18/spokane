@@ -18,7 +18,6 @@ import { Provider, connect } from "react-redux";
 let store = configureStore({
   reducer: user,
 });
-console.log(store.getState());
 
 let unSuscribe = store.subscribe(() => console.log(store.getState()));
 
