@@ -17,7 +17,7 @@ export const apartmentsReducer = (state = [], { type, payload, kind }) => {
 export const apartmentReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case aptTypes.SET_APARTMENT:
-      return { ...state, product: payload };
+      return payload;
     default:
       return state;
   }

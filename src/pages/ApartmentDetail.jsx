@@ -18,30 +18,27 @@ import { data } from "../database/data";
 import ApartmentCarousel from "../components/ApartmentCarousel";
 import { useCarousel } from "../context/CarouselApi";
 import request from "../async/request";
+import { useDispatch, useSelector } from "react-redux";
+import { setApartment } from "../redux/actions/apartmentActions";
 
 const ApartmentDetail = () => {
-
+	const dispatch = useDispatch()
 	const par = useParams()
-
+	const apartment = useSelector(state => state.apartment)
 	const { listRef, scrollLeft, scrollRight, showbtn, showScroll } =
 		useCarousel();
 	const [imgSlide, setImgSlide] = useState(0);
-	const slideShow = [
-		require("../images/living-room-couch.jpeg"),
-		require("../images/bedroom.jpeg"),
-		require("../images/kitchen.jpeg")
-	];
+	const slideShow = [apartment.image];
 
-	const checkIndex = (index) => Math.abs(index % 3);
+	const checkIndex = (index) => Math.abs(index % slideShow.length);
 	const handleNext = () => {
 		let result = imgSlide + 1;
 		setImgSlide(checkIndex(result));
-		console.log("next", imgSlide);
+		console.log(imgSlide)
 	};
 	const handlePrev = () => {
 		let result = imgSlide - 1;
 		setImgSlide(checkIndex(result));
-		console.log("prev", imgSlide);
 	};
 	const handleChange = (index) => {
 		setImgSlide(index);
@@ -66,8 +63,8 @@ const ApartmentDetail = () => {
 	];
 
 	async function fresh(){
-		request.get('/apartment/all')
-		.then(res=>console.log(res))
+		request.get('/apartment/'+par.id)
+		.then(res=>dispatch(setApartment(res.data)))
 		.catch(err=>console.log(err))
 	}
 
