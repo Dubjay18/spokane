@@ -9,13 +9,8 @@ import InputError from '../../components/InputError'
 import axios from "axios";
 import MainLayout from "../../layouts/MainLayout";
 import GoogleLogin from "react-google-login";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setUsername,
-  setEmail,
-  setToken,
-  setEntry,
-} from "../../redux/actions/userAction";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userAction";
 import request from "../../async/request";
 const UserLogin = (props) => {
   const [email, setEmailN] = React.useState("");
@@ -25,27 +20,11 @@ const UserLogin = (props) => {
   const [otp, setOtp] = React.useState(false);
   const [v, setV] = React.useState(false);
   const [error, setError] = React.useState({});
+
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.username);
-  const userEmail = useSelector((state) => state.email);
-  const userToken = useSelector((state) => state.token);
-  const userEntry = useSelector((state) => state.entry);
-  const setUser = (name) => {
-    dispatch(setUsername(name));
-    console.log(username);
-  };
-  const setUserToken = (e) => {
-    dispatch(setToken(e));
-    console.log(userEmail);
-  };
-  const setUserEmail = (e) => {
-    dispatch(setEmail(e));
-    console.log(userToken);
-  };
-  const setUserEntry = (e) => {
-    dispatch(setEntry(e));
-    console.log(userEntry);
+  const setlogUser = (user) => {
+    dispatch(setUser(user));
   };
 
   const handleReset = () => {
@@ -67,7 +46,8 @@ const UserLogin = (props) => {
           password: password,
         })
         .then((res) => {
-          setUserToken(res.data.Token);
+          setlogUser(res.data)
+          console.log(res.data.token)
           window.localStorage.setItem("spokanetoken", res.data.Token);
 
           axios
@@ -77,9 +57,7 @@ const UserLogin = (props) => {
               }
             })
             .then((response) => {
-              setUserEntry(response.data.entry);
-              setUser(response.data.full_name);
-              setUserEmail(response.data.email);
+              setlogUser(response.data)
               // >?Is this local storage necessary
               window.localStorage.setItem(
                 "spokaneuser",

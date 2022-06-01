@@ -14,9 +14,9 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [productName, setProductName] = useState("");
   const [location, setLocation] = useState("lagos");
-  const username = useSelector((state) => state.username);
+  const username = useSelector((state) => state.user.username);
   const userEmail = useSelector((state) => state.email);
-  const userToken = useSelector((state) => state.token);
+  const userToken = useSelector((state) => state.user.token);
   const userEntry = useSelector((state) => state.entry);
 
   const SelectImage = (img) => {

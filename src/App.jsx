@@ -29,41 +29,17 @@ import AgentTransactions from "./pages/agent/AgentTransactions";
 import UserOtpVerification from "./pages/user/UserOtpVerification";
 import UserPasswordReset from "./pages/user/UserPasswordReset";
 import { useSelector, useDispatch } from "react-redux";
-import {setEmail, setEntry, setToken, setUsername} from './redux/actions/userAction'
+import { setUser } from './redux/actions/userAction'
 
 function App(props) {
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.username);
-  const userEmail = useSelector((state) => state.email);
-  const userToken = useSelector((state) => state.token);
-  const userEntry = useSelector((state) => state.entry);
-  const setUser = (name) => {
-    dispatch(setUsername(name));
-    console.log(username);
-  };
-  const setUserToken = (e) => {
-    dispatch(setToken(e));
-    console.log(userEmail);
-  };
-  const setUserEmail = (e) => {
-    dispatch(setEmail(e));
-    console.log(userToken);
-  };
-  const setUserEntry = (e) => {
-    dispatch(setEntry(e));
-    console.log(userEntry);
-  };
   const storedToken = localStorage.getItem("spokanetoken");
   const spokaneUser = JSON.parse(localStorage.getItem("spokaneuser"));
 
   useEffect(() => {
-    console.log(storedToken, spokaneUser);
     if (storedToken || spokaneUser) {
       console.log("test");
-      setUserToken(storedToken);
-      setUser(spokaneUser.username);
-      setUserEmail(spokaneUser.useremail);
-      setUserEntry(spokaneUser.userentry);
+      dispatch(setUser(spokaneUser))
     }
   }, []);
 

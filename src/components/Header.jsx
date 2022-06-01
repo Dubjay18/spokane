@@ -4,14 +4,10 @@ import { FaBars } from "react-icons/fa";
 
 import Profile from "../images/profile.png";
 import Logo from "../images/home_logo.png";
-import {
-  setUsername,
-  setEmail,
-  setToken,
-  setEntry,
-} from "../redux/actions/userAction";
+import { setUser, clearUser } from "../redux/actions/userAction";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import request from "../async/request";
 
 const Header = ({ headless, bgpur, textwhite }) => {
   const Navigate = useNavigate();
@@ -20,41 +16,22 @@ const Header = ({ headless, bgpur, textwhite }) => {
   const splitLocation = pathname.split("/");
   const [menuBar, setMenuBar] = useState(false);
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.username);
-  const userEmail = useSelector((state) => state.email);
-  const userToken = useSelector((state) => state.token);
-  const userEntry = useSelector((state) => state.entry);
-  const setUser = (name) => {
-    dispatch(setUsername(name));
-    console.log(username);
-  };
-  const setUserToken = (e) => {
-    dispatch(setToken(e));
-    console.log(userEmail);
-  };
-  const setUserEmail = (e) => {
-    dispatch(setEmail(e));
-    console.log(userToken);
-  };
-  const setUserEntry = (e) => {
-    dispatch(setEntry(e));
-    console.log(userEntry);
-  };
+  const username = useSelector((state) => state.user.username);
+  const userToken = useSelector((state) => state.user.Token);
+  
   const handleMenu = () => {
     setMenuBar((prevMenuBar) => !prevMenuBar);
   };
   const logout = () => {
     console.log(userToken);
-    axios
+    request
       .get(`https://freehouses.herokuapp.com/api/v1/logout/`, {
-        headers: { Authorization: "Token" + " " + userToken },
+        headers: {
+          Authorization: "Token" + " " + userToken
+        }
       })
       .then(() => {
-        setUser(null);
-
-        console.log(username);
-        setUserToken(null);
-        console.log(userToken);
+        dispatch(clearUser())
         localStorage.clear();
         Navigate("/login");
       })

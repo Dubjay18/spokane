@@ -1,17 +1,9 @@
 import usertypes from "../types/usertypes";
 
-export const setUsername = (username) => {
-  return { type: usertypes.SET_USERNAME, username };
+export const setUser = (user) => {
+  return { type: usertypes.SET_USER, payload: user };
 };
 
-export const setEmail = (email) => {
-  return { type: usertypes.SET_EMAIL, email };
-};
-
-export const setToken = (token) => {
-  return { type: usertypes.SET_TOKEN, token };
-};
-
-export const setEntry = (entry) => {
-  return { type: usertypes.SET_ENTRY, entry };
+export const clearUser = () => {
+  return { type: usertypes.CLEAR_USER, payload: "" };
 };
