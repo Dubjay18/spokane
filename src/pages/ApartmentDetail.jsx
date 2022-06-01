@@ -174,7 +174,7 @@ const ApartmentDetail = () => {
 						</div>
 						<div className="flex justify-between my-7 items-center">
 							<h3 className="text-2xl md:text-3xl">
-								₦500,000.00
+								₦{Number(apartment.price).toLocaleString()}
 							</h3>
 							<p className="text-ash-300 text-sm">
 								Available Apartments: 10

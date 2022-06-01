@@ -17,13 +17,14 @@ const Home = () => {
 	const subMenu = ["All", ...new Set(data.map((menu) => menu.type))];
 	// const [list, setList] = useState(data);
 	const [type, setType] = useState('All')
-	const apartments = useSelector(state => state.apartments)
+	let apartments = useSelector(state => state.apartments
+		.filter(e => e.category === (type === 'All' ? e.category : type)))
 	useEffect(()=>{
 		request.get('/apartment/all')
 		.then(response=>response.data.results)
-		.then(res => dispatch(setApartments(type, res)))
+		.then(res => dispatch(setApartments(res)))
 		.catch(err => console.log(err))
-	}, [type])
+	}, [])
 	const homeCard = [
 		{
 			text: "Search Apartment",
@@ -44,8 +45,6 @@ const Home = () => {
 
 	const handleChange = (item) => {
 		setType(item)
-		// const newData = data.filter((ele) => ele.type === item);
-		// setList(newData);
 	};
 
 	return (
