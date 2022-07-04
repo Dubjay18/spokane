@@ -9,7 +9,7 @@ import InputError from '../../components/InputError'
 import axios from "axios";
 import MainLayout from "../../layouts/MainLayout";
 import GoogleLogin from "react-google-login";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/actions/userAction";
 import request from "../../async/request";
 const UserLogin = (props) => {
@@ -26,7 +26,9 @@ const UserLogin = (props) => {
   const setlogUser = (user) => {
     dispatch(setUser(user));
   };
-
+  const user = useSelector((state) => state.user)
+  window.localStorage.setItem("spokanetoken", user.Token);
+  
   const handleReset = () => {
     request.post('/get-OTP/', {email})
     .then(res=>alert('sent'))
@@ -47,7 +49,6 @@ const UserLogin = (props) => {
         })
         .then((res) => {
           setlogUser(res.data)
-          console.log(res.data.token)
           window.localStorage.setItem("spokanetoken", res.data.Token);
 
           axios
@@ -61,11 +62,7 @@ const UserLogin = (props) => {
               // >?Is this local storage necessary
               window.localStorage.setItem(
                 "spokaneuser",
-                JSON.stringify({
-                  username: response.data.full_name,
-                  useremail: response.data.email,
-                  userentry: response.data.entry,
-                })
+                JSON.stringify(response.data)
               );
               Navigate("/user-profile");
             })
@@ -75,7 +72,7 @@ const UserLogin = (props) => {
             });
         })
         .catch((err) => {
-          setError({...error, res: `${err.response.data.message}`})
+          setError({...error, res: `${err.response.data.detail}`})
           setV(true)
         });
     }

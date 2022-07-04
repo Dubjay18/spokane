@@ -68,7 +68,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
 			`}
         >
           <ul className="flex flex-col md:items-center md:flex-row gap-y-3 md:gap-5 md:justify-evenly lg:justify-between mt-5 md:mt-0">
-            {username ? (
+            {userToken ? (
               ""
             ) : (
               <li className={splitLocation[1] === "login" ? "active-nav" : ""}>
@@ -86,7 +86,7 @@ const Header = ({ headless, bgpur, textwhite }) => {
             </li>
           </ul>
           <ul className="flex flex-col md:flex-row md:items-center mt-3 md:mt-0 gap-y-3 gap-x-4 lg:justify-end">
-            {username ? (
+            {userToken ? (
               <>
                 <li className={`xl:mr-4`}>
                   <Link to="/"> {username}</Link>

@@ -24,11 +24,11 @@ import { setApartment } from "../redux/actions/apartmentActions";
 const ApartmentDetail = () => {
 	const dispatch = useDispatch()
 	const par = useParams()
-	const apartment = useSelector(state => state.apartment)
+	const apartment = useSelector(state => state.apartment["apartment details"]) ?? ""
 	const { listRef, scrollLeft, scrollRight, showbtn, showScroll } =
 		useCarousel();
 	const [imgSlide, setImgSlide] = useState(0);
-	const slideShow = [apartment.image];
+	const slideShow = apartment.image_url ?? [];
 
 	const checkIndex = (index) => Math.abs(index % slideShow.length);
 	const handleNext = () => {
@@ -63,7 +63,9 @@ const ApartmentDetail = () => {
 
 	async function fresh(){
 		request.get('/apartment/'+par.id)
-		.then(res=>dispatch(setApartment(res.data)))
+		.then(res=>{
+			dispatch(setApartment(res.data))
+		})
 		.catch(err=>console.log(err))
 	}
 

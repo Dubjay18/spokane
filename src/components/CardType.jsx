@@ -2,11 +2,12 @@ import React from 'react';
 import { FaRegHeart } from 'react-icons/fa';
 import {Link} from 'react-router-dom'
 
-const CardType = ({apartment_id, price, category, location, agent, apartment_title, image}) => {
+const CardType = ({apartment_id, price, category, location, agent, apartment_title, image_url}) => {
+	console.log(image_url[0])
   return (
 		<Link to={`/apartment/${apartment_id}`}>
 			<img
-				src={image}
+				src={image_url[0]}
 				alt={apartment_title}
 				className="w-full object-cover h-72 rounded-xl"
 			/>

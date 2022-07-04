@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { FaTimes, FaFileUpload } from "react-icons/fa";
 
 const FileUpload = ({ SelectImage }) => {
@@ -16,34 +17,14 @@ const FileUpload = ({ SelectImage }) => {
       //   setImagey(str);
       // };
       // reader.readAsArrayBuffer(e.target.files[0]);
-      const imageArray = uploadedArray.map((img) => URL.createObjectURL(img));
-      setImages((prevImage) => [...prevImage, ...imageArray]);
-      Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
-      SelectImage(images);
-      console.log(images);
-      console.log(imageArray);
+      setImages((prevImage) => [...prevImage, ...uploadedArray]);
+      // Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
     }
-
-    // if (e.target.files[0].type.indexOf("audio/") !== 0) {
-    //   console.warn("not an audio file");
-    //   return;
-    // }
-    // const reader = new FileReader();
-    // console.log(reader);
-    // reader.onload = function () {
-    //   console.log(this);
-    //   var str = this.result;
-    //   // this is a string, so you can store it in localStorage, even if it's really not a good idea
-    //   console.log(str);
-    //   div.innerHTML += `<audio controls>
-    //   <source src=${str} type="audio/mpeg" />
-    //   Your browser does not support the audio element.
-    // </audio><img src=${str}/>`;
-    //   // const aud = new Audio(str);
-    //   // aud.play();
-    // };
-    // reader.readAsDataURL(f.files[0]);
   };
+
+  useEffect(()=>{
+    SelectImage(images)
+  }, [images])
 
   const handleDrop = (id) => {
     setImages(images.filter((img) => img !== id));
@@ -71,9 +52,9 @@ const FileUpload = ({ SelectImage }) => {
       <div className="flex flex-wrap justify-center gap-4">
         {images.map((img) => {
           return (
-            <div key={img} className="relative">
+            <div key={img.name} className="relative">
               <img
-                src={img}
+                src={URL.createObjectURL(img)}
                 alt={img}
                 className="w-24 rounded-lg h-20 object-cover"
               />

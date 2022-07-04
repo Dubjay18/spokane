@@ -35,13 +35,17 @@ function App(props) {
   const dispatch = useDispatch();
   const storedToken = localStorage.getItem("spokanetoken");
   const spokaneUser = JSON.parse(localStorage.getItem("spokaneuser"));
+  const user = useSelector((state)=>state.user)
 
   useEffect(() => {
-    if (storedToken || spokaneUser) {
-      console.log("test");
-      dispatch(setUser(spokaneUser))
+    if (!user.email && spokaneUser) {
+      dispatch(setUser(Object.assign(spokaneUser, {Token: storedToken})))
     }
-  }, []);
+    else if(!spokaneUser && user) {
+      window.localStorage.setItem("spokaneuser", JSON.stringify(user));
+    }
+    
+  }, [user, spokaneUser]);
 
   return (
     <Routes>

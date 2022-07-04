@@ -14,14 +14,13 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [productName, setProductName] = useState("");
   const [location, setLocation] = useState("lagos");
-  const username = useSelector((state) => state.user.username);
+  const username = useSelector((state) => state.user.full_name);
   const userEmail = useSelector((state) => state.email);
-  const userToken = useSelector((state) => state.user.token);
+  const userToken = useSelector((state) => state.user.Token);
   const userEntry = useSelector((state) => state.entry);
 
   const SelectImage = (img) => {
     setImage(img);
-    console.log(image);
   };
 
   const cat = [
@@ -45,14 +44,34 @@ const AddProduct = () => {
   const removeTag = (id) => {
     setTags(tags.filter((tag) => tag.id !== id));
   };
-  const toBase64 = (str) =>
-    typeof window === "undefined"
-      ? Buffer.from(str).toString("base64")
-      : window.btoa(str);
+
+  const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/housefree/image/upload';
+  const API_PRESET = 'by5ljhgp'
+  
+
+  const sendImg = () => {
+    return new Promise((resolve, reject)=>{
+      let links = []
+      if (image.length > 1){
+        image.map(img => {
+          const formData = new FormData()
+          formData.append('file', img)
+          formData.append('upload_preset', API_PRESET)
+          axios.post(CLOUDINARY_URL, formData)
+          .then(res => links.push(res.data.secure_url))
+          .catch(err => reject(err))
+          return resolve(links)
+        }) }
+      })
+      }
 
   const handleAdd = (e) => {
     e.preventDefault();
-    axios
+    console.log('Submitted')
+    sendImg()
+    .then((links) => {
+      console.log(links)
+      axios
       .post(
         `https://freehouses.herokuapp.com/api/v1/apartment/post/`,
 
@@ -60,16 +79,16 @@ const AddProduct = () => {
           apartment_title: productName,
           category: category,
           price: price,
-          image: image,
+          image_url: links,
           location: location,
           is_available: true,
           agent: username,
 
-          user_id: "2334c2a3-3b71-464c-abd9-8daef267b41b",
+          user_id: userEmail,
         },
         {
           headers: {
-            Authorization: "Token" + " " + userToken,
+            Authorization: `Token ${userToken}`,
           },
         }
       )
@@ -83,13 +102,15 @@ const AddProduct = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
-  };
+      })
+    .catch(err => console.log(err))
+    })
+  }
   return (
     <AgentProfileLayout>
       <section>
         <h1 className="text-xl text-pur md:text-2xl font-bold ">Add Product</h1>
-        <form onSubmit={handleAdd}>
+        <form onSubmit={(e)=>handleAdd(e)}>
           <div className="grid md:grid-cols-2 gap-5">
             <div>
               <div className="grid mt-8">
