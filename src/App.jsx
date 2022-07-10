@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import ApartmentDetail from "./pages/ApartmentDetail";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
@@ -30,6 +30,7 @@ import UserOtpVerification from "./pages/user/UserOtpVerification";
 import UserPasswordReset from "./pages/user/UserPasswordReset";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from './redux/actions/userAction'
+import Transaction from "./pages/Transaction";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -38,10 +39,10 @@ function App(props) {
   const user = useSelector((state)=>state.user)
 
   useEffect(() => {
-    if (!user.email && spokaneUser) {
+    if (!user.email && spokaneUser.email) {
       dispatch(setUser(Object.assign(spokaneUser, {Token: storedToken})))
     }
-    else if(!spokaneUser && user) {
+    else if(!spokaneUser.email && user.email) {
       window.localStorage.setItem("spokaneuser", JSON.stringify(user));
     }
     
@@ -54,7 +55,11 @@ function App(props) {
       <Route path="/contact-us" element={<Contact />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/search-results" element={<SearchResult />} />
-      <Route path="/apartment/:id" element={<ApartmentDetail />} />
+      <Route path="/apartment/:id" element={<Outlet />}>
+        <Route index element={<ApartmentDetail />} />
+        {/* Transaction */}
+        <Route path="purchase" element={<Transaction />} />
+      </Route>
       <Route path="*" element={<ErrorPage />} />
       {/* AGENT ROUTES */}
       <Route path="/agent-signup" element={<AgentSignup />} />

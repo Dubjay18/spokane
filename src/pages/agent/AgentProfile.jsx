@@ -44,9 +44,9 @@ const AgentProfile = () => {
 					})}
 				</div>
 				<div className="grid py-3 gap-y-10 gap-x-6 md:grid-cols-3">
-					{list.map((typ, index) => {
+					{/* {list.map((typ, index) => {
 						return <CardType key={index} {...typ} />;
-					})}
+					})} */}
 				</div>
 				<div className="text-center pb-8">
 					<button className="text-pur shadow-btn py-2.5 px-14 text-lg mt-8 rounded-lg">
