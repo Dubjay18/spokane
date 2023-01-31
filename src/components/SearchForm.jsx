@@ -36,6 +36,7 @@ const SearchForm = () => {
 						/>
 					</div>
 					<Dropdown
+						title={'Price Range'}
 						value={price}
 						setValue={setPrice}
 						toggle={sprice}
@@ -43,6 +44,7 @@ const SearchForm = () => {
 						data={priceList}
 					/>
 					<Dropdown
+						title={'Apartment Type'}
 						value={apartment}
 						setValue={setApartment}
 						toggle={sment}

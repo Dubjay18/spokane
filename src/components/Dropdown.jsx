@@ -1,10 +1,10 @@
 import React from 'react';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-const Dropdown = ({value, setValue, toggle, setToggle, data}) => {
+const Dropdown = ({value, setValue, toggle, setToggle, data, title}) => {
   return (
 		<div className="relative">
-			<span className="pl-3">Price Range</span>
+			<span className="pl-3">{title}</span>
 			<div
 				onClick={() => setToggle(!toggle)}
 				className="flex px-3 text-ash-50 items-center cursor-pointer justify-between"
