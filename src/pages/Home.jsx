@@ -19,12 +19,18 @@ const Home = () => {
 	const [type, setType] = useState('All')
 	let apartments = useSelector(state => state.apartments
 		.filter(e => e.category === (type === 'All' ? e.category : type)))
+	
 	useEffect(()=>{
 		request.get('/apartment/all')
-		.then(response=>response.data.results)
-		.then(res => dispatch(setApartments(res)))
+		.then(response=>response.data)
+		.then(res => {
+			dispatch(setApartments(res))
+			console.log(res)
+		})
 		.catch(err => console.log(err))
 	}, [])
+	
+	
 	const homeCard = [
 		{
 			text: "Search Apartment",
@@ -44,7 +50,7 @@ const Home = () => {
 	];
 
 	const handleChange = (item) => {
-		setType(item)
+		setType(item)	
 	};
 
 	return (

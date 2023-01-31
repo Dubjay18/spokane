@@ -38,15 +38,15 @@ function App(props) {
   const spokaneUser = JSON.parse(localStorage.getItem("spokaneuser"));
   const user = useSelector((state)=>state.user)
 
-  useEffect(() => {
-    if (!user.email && spokaneUser.email) {
-      dispatch(setUser(Object.assign(spokaneUser, {Token: storedToken})))
-    }
-    else if(!spokaneUser.email && user.email) {
-      window.localStorage.setItem("spokaneuser", JSON.stringify(user));
-    }
+  // useEffect(() => {
+  //   if (!user.email && spokaneUser.email) {
+  //     dispatch(setUser(Object.assign(spokaneUser, {Token: storedToken})))
+  //   }
+  //   else if(!spokaneUser.email && user.email) {
+  //     window.localStorage.setItem("spokaneuser", JSON.stringify(user));
+  //   }
     
-  }, [user, spokaneUser]);
+  // }, [user, spokaneUser]);
 
   return (
     <Routes>
